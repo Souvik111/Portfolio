@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Source GIFs (large); web-optimised MP4s live in public/deepr/video
+/gif
+.DS_Store

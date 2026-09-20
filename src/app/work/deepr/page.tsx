@@ -91,10 +91,22 @@ function Caption({ children }: { children: string }) {
   );
 }
 
-function TvFrame({ src, alt }: { src: string; alt: string }) {
+// Figma "tv": black 1200x684 bezel, screen inset at 14.3,12.8 sized 1171x660.
+// The screen is a looping prototype recording (converted from the Figma GIF).
+function TvFrame({ src, poster, alt }: { src: string; poster: string; alt: string }) {
   return (
-    <div className="relative aspect-[1200/684] w-full overflow-hidden rounded-[20px]">
-      <Image src={src} alt={alt} fill className="object-cover" sizes="1200px" />
+    <div className="relative aspect-[1200/684] w-full overflow-hidden rounded-[20px] bg-black">
+      <video
+        src={src}
+        poster={poster}
+        aria-label={alt}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        className="absolute left-[1.195%] top-[1.873%] h-[96.45%] w-[97.61%] object-cover"
+      />
     </div>
   );
 }
@@ -330,7 +342,8 @@ export default function DeeprPage() {
           </div>
           <div className="mt-[30px]">
             <TvFrame
-              src={`${IMG}/tv-netflix.png`}
+              src={`${IMG}/video/tv-netflix.mp4`}
+              poster={`${IMG}/tv-netflix.png`}
               alt="Netflix player showing the Go Deepr button beside Play and More Info"
             />
           </div>
@@ -394,7 +407,8 @@ export default function DeeprPage() {
           </div>
           <div className="mt-[30px]">
             <TvFrame
-              src={`${IMG}/tv-youtube.png`}
+              src={`${IMG}/video/tv-youtube.mp4`}
+              poster={`${IMG}/tv-youtube.png`}
               alt="YouTube TV player showing the Episode 3 playlist control"
             />
           </div>
@@ -556,22 +570,36 @@ export default function DeeprPage() {
           </div>
           <div className="mt-[46px] grid grid-cols-2 gap-y-[40px] rounded-[20px] bg-surface px-[30px] pt-[50px] pb-[50px] md:grid-cols-4">
             {[
-              ["YouTube Music", "phone-ytmusic"],
-              ["YouTube", "phone-youtube"],
-              ["Apex Music", "phone-apex"],
-              ["Amazon Music", "phone-amazon"],
-            ].map(([name, file]) => (
-              <div key={name} className="flex flex-col items-center">
+              ["YouTube Music", "phone-ytmusic", true],
+              ["YouTube", "phone-youtube", false],
+              ["Apex Music", "phone-apex", false],
+              ["Amazon Music", "phone-amazon", false],
+            ].map(([name, file, hasVideo]) => (
+              <div key={name as string} className="flex flex-col items-center">
                 <h3 className="font-display text-[28px] font-bold leading-[42px] text-ink">
                   {name}
                 </h3>
-                <Image
-                  src={`${IMG}/${file}.png`}
-                  alt={`Deepr inside ${name}`}
-                  width={200}
-                  height={408}
-                  className="mt-[14px] h-[408px] w-[200px] object-contain"
-                />
+                {hasVideo ? (
+                  <video
+                    src={`${IMG}/video/${file}.mp4`}
+                    poster={`${IMG}/${file}.png`}
+                    aria-label={`Deepr inside ${name}`}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    className="mt-[14px] h-[405px] w-[200px] rounded-[30px] object-cover"
+                  />
+                ) : (
+                  <Image
+                    src={`${IMG}/${file}.png`}
+                    alt={`Deepr inside ${name}`}
+                    width={200}
+                    height={408}
+                    className="mt-[14px] h-[408px] w-[200px] object-contain"
+                  />
+                )}
               </div>
             ))}
           </div>
