@@ -103,7 +103,7 @@ function TvFrame({ src, alt }: { src: string; alt: string }) {
 
 export default function DeeprPage() {
   return (
-    <main className="min-h-screen bg-bg pb-[106px]">
+    <main id="top" className="min-h-screen bg-bg pb-[106px]">
       <Nav />
 
       <div className="mx-auto w-full max-w-[1200px] px-6 xl:px-0">
@@ -729,19 +729,26 @@ export default function DeeprPage() {
             <span className="text-orange">invisible</span> feel important
             enough to explore.&quot;
           </p>
-          <div className="relative mt-[30px] flex flex-wrap justify-center gap-[22px]">
+          <div className="relative mt-[30px] flex flex-wrap justify-center gap-[24px]">
             <Link
               href="/work/footprints"
-              className="flex h-[49px] w-[263px] items-center justify-center rounded-full bg-orange text-[16px] font-semibold text-white"
+              className="flex h-[49px] items-center rounded-full bg-orange px-[25px] text-[16px] font-semibold text-white"
             >
               Next Case Study Footprints
             </Link>
-            <Link
-              href="/work/footprints"
-              className="flex h-[49px] w-[263px] items-center justify-center rounded-full bg-orange text-[16px] font-semibold text-white"
+            <a
+              href="#top"
+              className="flex h-[49px] items-center gap-[10px] rounded-full bg-white px-[25px] text-[16px] font-semibold text-orange"
             >
-              Next Case Study Footprints
-            </Link>
+              <Image
+                src={`${IMG}/back-to-top.svg`}
+                alt=""
+                width={18}
+                height={17}
+                className="h-[17px] w-[18px]"
+              />
+              Back to Top
+            </a>
           </div>
         </section>
       </div>
