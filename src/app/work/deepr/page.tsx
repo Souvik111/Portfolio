@@ -104,7 +104,7 @@ function TvFrame({ src, alt }: { src: string; alt: string }) {
 export default function DeeprPage() {
   return (
     <main id="top" className="min-h-screen bg-bg pb-[106px]">
-      <Nav />
+      <Nav active="Work" />
 
       <div className="mx-auto w-full max-w-[1200px] px-6 xl:px-0">
         {/* Hero */}
