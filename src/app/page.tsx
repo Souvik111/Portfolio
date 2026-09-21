@@ -128,9 +128,9 @@ export default function Home() {
             </div>
             <a
               href="#"
-              className="mt-[9px] flex h-[52px] items-center rounded-full bg-orange px-[25px] text-[16px] font-medium text-white"
+              className="btn-pop mt-[9px] flex h-[52px] items-center rounded-full bg-orange px-[25px] text-[16px] font-medium text-white"
             >
-              Explore More
+              <span>Explore More</span>
             </a>
           </div>
           <div className="mt-[28px] grid gap-[20px] sm:grid-cols-2 md:mt-[34px] md:grid-cols-3">

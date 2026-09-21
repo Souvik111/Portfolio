@@ -70,9 +70,9 @@ export default function MobileMenu({
               target="_blank"
               rel="noopener"
               onClick={() => setOpen(false)}
-              className="mt-[4px] flex h-[44px] items-center justify-center rounded-full bg-orange text-[16px] font-medium text-white"
+              className="btn-pop mt-[4px] flex h-[44px] items-center justify-center rounded-full bg-orange text-[16px] font-medium text-white"
             >
-              {cta.label}
+              <span>{cta.label}</span>
             </a>
           )}
         </nav>

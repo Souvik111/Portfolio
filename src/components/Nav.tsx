@@ -65,9 +65,9 @@ export default function Nav({
           href="/cv.pdf"
           target="_blank"
           rel="noopener"
-          className="hidden h-[52px] items-center rounded-full bg-orange px-[25px] text-[16px] font-medium text-white md:flex md:justify-self-end"
+          className="btn-pop hidden h-[52px] items-center rounded-full bg-orange px-[25px] text-[16px] font-medium text-white md:flex md:justify-self-end"
         >
-          Read CV
+          <span>Read CV</span>
         </a>
         <MobileMenu links={homeLinks} active={active} cta={{ label: "Read CV", href: "/cv.pdf" }} />
       </header>

@@ -781,13 +781,13 @@ export default function DeeprPage() {
           <div className="relative mt-[30px] flex flex-wrap justify-center gap-[24px]">
             <Link
               href="/work/footprints"
-              className="flex h-[49px] items-center rounded-full bg-orange px-[25px] text-[16px] font-semibold text-white"
+              className="btn-pop flex h-[49px] items-center rounded-full bg-orange px-[25px] text-[16px] font-semibold text-white"
             >
-              Next Case Study Footprints
+              <span>Next Case Study Footprints</span>
             </Link>
             <a
               href="#top"
-              className="flex h-[49px] items-center gap-[10px] rounded-full bg-white px-[25px] text-[16px] font-semibold text-orange"
+              className="btn-pop flex h-[49px] items-center gap-[10px] rounded-full bg-white px-[25px] text-[16px] font-semibold text-orange"
             >
               <Image
                 src={`${IMG}/back-to-top.svg`}
@@ -796,7 +796,7 @@ export default function DeeprPage() {
                 height={17}
                 className="h-[17px] w-[18px]"
               />
-              Back to Top
+              <span>Back to Top</span>
             </a>
           </div>
         </section>
