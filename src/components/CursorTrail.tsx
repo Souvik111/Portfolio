@@ -2,12 +2,13 @@
 
 import { useEffect, useRef } from "react";
 
-// Sketchy orange line that follows the pointer and fades out behind it,
-// plus a blue ring / orange dot in place of the native cursor.
+// Sketchy orange line that follows the pointer and fades out behind it.
+// Elements with data-cursor-label="…" get a big orange badge that follows
+// the pointer while hovered (e.g. "View Case study" on work cards).
 // Only active for fine pointers (mouse/trackpad), never on touch.
 const TRAIL_MS = 700;
 const ORANGE = "#f0603c";
-const BLUE = "#4f7be8";
+const BADGE_R = 105;
 
 export default function CursorTrail() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -20,7 +21,11 @@ export default function CursorTrail() {
     const ctx = canvas.getContext("2d")!;
     const points: { x: number; y: number; t: number }[] = [];
     let cursor = { x: -100, y: -100 };
-    let hoveringLink = false;
+    let label: string | null = null;
+    let badge = 0; // 0..1 scale, eased
+    const displayFont =
+      getComputedStyle(document.documentElement).getPropertyValue("--font-syne").trim() ||
+      "sans-serif";
     let raf = 0;
     let dpr = 1;
 
@@ -37,10 +42,11 @@ export default function CursorTrail() {
       cursor = { x: e.clientX, y: e.clientY };
       points.push({ x: e.clientX, y: e.clientY, t: performance.now() });
       const el = e.target as Element | null;
-      hoveringLink = !!el?.closest("a, button, [role=button], video");
+      label = el?.closest<HTMLElement>("[data-cursor-label]")?.dataset.cursorLabel ?? null;
     };
     const leave = () => {
       cursor = { x: -100, y: -100 };
+      label = null;
     };
 
     const draw = () => {
@@ -68,23 +74,32 @@ export default function CursorTrail() {
         ctx.stroke();
       }
 
-      // cursor: blue ring with orange dot, ring grows over links
-      ctx.globalAlpha = 1;
-      const r = hoveringLink ? 14 : 9;
-      ctx.fillStyle = BLUE;
-      ctx.beginPath();
-      ctx.arc(cursor.x, cursor.y, r, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = ORANGE;
-      ctx.beginPath();
-      ctx.arc(cursor.x, cursor.y, 3.5, 0, Math.PI * 2);
-      ctx.fill();
+      // hover badge: orange circle with the label, eased in/out
+      badge += ((label ? 1 : 0) - badge) * 0.18;
+      if (badge > 0.01) {
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = ORANGE;
+        ctx.beginPath();
+        ctx.arc(cursor.x, cursor.y, BADGE_R * badge, 0, Math.PI * 2);
+        ctx.fill();
+        if (label && badge > 0.6) {
+          ctx.fillStyle = "#fff";
+          ctx.globalAlpha = (badge - 0.6) / 0.4;
+          ctx.font = `500 ${28 * badge}px ${displayFont}`;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          const lines = label.split("\\n");
+          const lh = 34 * badge;
+          lines.forEach((line, i) => {
+            ctx.fillText(line, cursor.x, cursor.y + (i - (lines.length - 1) / 2) * lh);
+          });
+        }
+      }
 
       raf = requestAnimationFrame(draw);
     };
 
     resize();
-    document.documentElement.classList.add("custom-cursor");
     window.addEventListener("resize", resize);
     window.addEventListener("pointermove", move, { passive: true });
     document.addEventListener("pointerleave", leave);
@@ -92,7 +107,6 @@ export default function CursorTrail() {
 
     return () => {
       cancelAnimationFrame(raf);
-      document.documentElement.classList.remove("custom-cursor");
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", move);
       document.removeEventListener("pointerleave", leave);

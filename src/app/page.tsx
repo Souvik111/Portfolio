@@ -78,6 +78,7 @@ export default function Home() {
                 href={w.href}
                 className="block overflow-hidden rounded-[20px]"
                 aria-label={w.title}
+                data-cursor-label={"View Case\\nstudy"}
               >
                 <Image
                   src={w.image}

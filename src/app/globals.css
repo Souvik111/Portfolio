@@ -143,9 +143,3 @@ video::-webkit-media-controls,
 video::-webkit-media-controls-enclosure {
   display: none !important;
 }
-
-/* CursorTrail draws its own cursor; hide the native one while it is active */
-.custom-cursor,
-.custom-cursor * {
-  cursor: none !important;
-}
