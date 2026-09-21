@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import HoverVideo from "@/components/HoverVideo";
+import CursorTrail from "@/components/CursorTrail";
 
 const IMG = "/home";
 
@@ -32,6 +33,7 @@ const socials = [
 export default function Home() {
   return (
     <main id="top" className="min-h-screen bg-bg pb-[30px]">
+      <CursorTrail />
       <Nav variant="home" active="Home" />
 
       <div className="mx-auto w-full max-w-[1200px] px-6 xl:px-0">
@@ -102,16 +104,6 @@ export default function Home() {
                 ))}
               </ul>
             </article>
-          ))}
-          {[0, 1].map((i) => (
-            <div
-              key={i}
-              className="flex h-[460px] items-center justify-center rounded-[20px] bg-[#e4e4e4]"
-            >
-              <p className="font-display text-[38px] leading-[45.6px] text-black/30">
-                Coming Soon...
-              </p>
-            </div>
           ))}
         </section>
 
