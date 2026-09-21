@@ -58,3 +58,70 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+/* ---------- homepage animations ---------- */
+
+/* 👋 waves once when the page opens */
+@keyframes hello-wave {
+  0%, 100% { transform: rotate(0deg); }
+  15% { transform: rotate(16deg); }
+  30% { transform: rotate(-10deg); }
+  45% { transform: rotate(16deg); }
+  60% { transform: rotate(-6deg); }
+  75% { transform: rotate(10deg); }
+}
+.hello-wave {
+  transform-origin: 70% 70%;
+  animation: hello-wave 1.8s ease-in-out 0.4s 2;
+}
+
+/* headline turns orange on hover */
+.headline {
+  transition: color 0.3s ease;
+}
+.headline:hover {
+  color: var(--orange);
+}
+
+/* ✿ spins and grows when hovered on its own */
+@keyframes flower-spin {
+  from { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.25); }
+  to { transform: rotate(360deg) scale(1); }
+}
+.flower {
+  transition: transform 0.3s ease;
+}
+.flower:hover {
+  animation: flower-spin 0.9s ease-in-out infinite;
+}
+
+/* ✦ twinkles when hovered on its own */
+@keyframes sparkle-twinkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  25% { transform: scale(1.35) rotate(15deg); opacity: 0.7; }
+  50% { transform: scale(0.8) rotate(-15deg); opacity: 1; }
+  75% { transform: scale(1.25) rotate(10deg); opacity: 0.8; }
+}
+.sparkle:hover {
+  animation: sparkle-twinkle 0.8s ease-in-out infinite;
+}
+
+/* footer cat walks right, leaves, and comes back in from the left */
+@keyframes cat-walk {
+  from { transform: translateX(-130px); }
+  to { transform: translateX(1210px); }
+}
+@keyframes cat-bob {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -2px; }
+}
+.cat-walk {
+  animation: cat-walk 22s linear infinite, cat-bob 0.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hello-wave, .flower:hover, .sparkle:hover, .cat-walk {
+    animation: none;
+  }
+}
