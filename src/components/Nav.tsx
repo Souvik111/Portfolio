@@ -19,7 +19,7 @@ const caseStudyLinks = [
 
 function Pill({ links, active }: { links: typeof homeLinks; active: string }) {
   return (
-    <nav className="flex h-[52px] items-center rounded-full border border-black/10 bg-surface-nav px-[7px]">
+    <nav className="flex h-[52px] w-fit max-w-full items-center overflow-x-auto rounded-full border border-black/10 bg-surface-nav px-[7px] md:w-auto">
       {links.map((l) => (
         <Link
           key={l.label}
@@ -44,7 +44,7 @@ export default function Nav({
 }) {
   if (variant === "home") {
     return (
-      <header className="mx-auto grid w-full max-w-[1200px] grid-cols-[1fr_auto_1fr] items-center px-6 pt-[30px] xl:px-0">
+      <header className="mx-auto flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-4 px-6 pt-[30px] md:grid md:grid-cols-[1fr_auto_1fr] xl:px-0">
         <Link
           href="/"
           aria-label="Home"
@@ -59,12 +59,12 @@ export default function Nav({
             priority
           />
         </Link>
-        <Pill links={homeLinks} active={active} />
+        <div className="order-last w-full md:order-none md:w-auto md:justify-self-center"><Pill links={homeLinks} active={active} /></div>
         <a
           href="/cv.pdf"
           target="_blank"
           rel="noopener"
-          className="justify-self-end flex h-[52px] items-center rounded-full bg-orange px-[25px] text-[16px] font-medium text-white"
+          className="flex h-[52px] items-center rounded-full bg-orange px-[25px] text-[16px] font-medium text-white md:justify-self-end"
         >
           Read CV
         </a>
@@ -73,7 +73,7 @@ export default function Nav({
   }
 
   return (
-    <header className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-6 pt-[30px] md:px-[150px]">
+    <header className="mx-auto flex w-full max-w-[1440px] flex-wrap items-center justify-between gap-4 px-6 pt-[30px] md:px-[150px]">
       <Link href="/" aria-label="Home">
         <Image
           src="/deepr/avatar.png"

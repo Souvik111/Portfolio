@@ -24,11 +24,15 @@ const work = [
 ];
 
 const socials = [
-  { name: "LinkedIn", icon: "icon-linkedin", href: "#" },
-  { name: "GitHub", icon: "icon-github", href: "#" },
-  { name: "Behance", icon: "icon-behance", href: "#" },
-  { name: "X", icon: "icon-x", href: "#" },
+  { name: "LinkedIn", icon: "icon-linkedin", href: "https://www.linkedin.com/in/souvik-mondal-3a7a7415b/" },
+  { name: "GitHub", icon: "icon-github", href: "https://github.com/Souvik111" },
+  { name: "Behance", icon: "icon-behance", href: "https://www.behance.net/souvikmondal6" },
+  { name: "X", icon: "icon-x", href: "https://x.com/Sou__Vik" },
 ];
+
+// Gmail compose in a new tab instead of mailto: (which makes the browser ask to open a mail app)
+const EMAIL = "souvikm725@gmail.com";
+const EMAIL_HREF = `https://mail.google.com/mail/?view=cm&to=${EMAIL}`;
 
 export default function Home() {
   return (
@@ -38,14 +42,14 @@ export default function Home() {
 
       <div className="mx-auto w-full max-w-[1200px] px-6 xl:px-0">
         {/* Hero */}
-        <section className="relative mt-[96px] min-h-[270px]">
+        <section className="relative mt-[60px] md:mt-[96px] lg:min-h-[270px]">
           <p className="hello inline-block text-[20px] font-light leading-[26px] text-black/70">
             Hi, I&apos;m Souvik
             <span className="hello-wave inline-block" aria-hidden>
               👋
             </span>
           </p>
-          <h1 className="headline mt-[15px] max-w-[773px] font-display text-[58px] font-medium leading-[69.6px] text-black">
+          <h1 className="headline mt-[15px] max-w-[773px] font-display text-[36px] font-medium leading-[1.2] text-black md:text-[58px] md:leading-[69.6px]">
             I design products that make people feel{" "}
             <span className="flower inline-block" aria-label="flower">
               ✿
@@ -55,7 +59,7 @@ export default function Home() {
               ✦
             </span>
           </h1>
-          <p className="mt-[20px] max-w-[606px] text-[20px] font-light leading-[26px] text-black/70">
+          <p className="mt-[20px] max-w-[606px] text-[18px] font-light leading-[24px] text-black/70 md:text-[20px] md:leading-[26px]">
             3 years in, I&apos;ve learned to go beyond the interface. I design,
             prototype, build, and ship ideas with AI and code.
           </p>
@@ -71,7 +75,7 @@ export default function Home() {
         </section>
 
         {/* Work */}
-        <section id="work" className="mt-[61px] grid gap-x-[20px] gap-y-[38px] md:grid-cols-2">
+        <section id="work" className="mt-[50px] grid gap-x-[20px] gap-y-[38px] md:mt-[61px] md:grid-cols-2">
           {work.map((w) => (
             <article key={w.title}>
               <Link
@@ -88,7 +92,7 @@ export default function Home() {
                   className="h-auto w-full transition-opacity duration-300 group-hover:opacity-60"
                 />
               </Link>
-              <h2 className="mt-[20px] font-display text-[26px] font-medium leading-[31.2px] text-black">
+              <h2 className="mt-[20px] font-display text-[22px] font-medium leading-[1.2] text-black md:text-[26px] md:leading-[31.2px]">
                 {w.title}
               </h2>
               <p className="mt-[10px] text-[16px] font-light leading-[20.8px] text-black">
@@ -111,11 +115,11 @@ export default function Home() {
         {/* Web work */}
         <section
           id="playground"
-          className="mt-[100px] rounded-[20px] border-t border-black/20 bg-white px-[30px] pt-[50px] pb-[30px]"
+          className="mt-[70px] rounded-[20px] border-t border-black/20 bg-white px-[20px] pt-[36px] pb-[20px] md:mt-[100px] md:px-[30px] md:pt-[50px] md:pb-[30px]"
         >
           <div className="flex flex-wrap items-start justify-between gap-6">
-            <div className="max-w-[512px] pl-[20px]">
-              <h2 className="font-display text-[34px] font-medium leading-[40.8px] text-black">
+            <div className="max-w-[512px] md:pl-[20px]">
+              <h2 className="font-display text-[26px] font-medium leading-[1.2] text-black md:text-[34px] md:leading-[40.8px]">
                 Stuff I&apos;ve made for the web
               </h2>
               <p className="mt-[8px] text-[16px] font-light leading-[20.8px] text-black/70">
@@ -129,7 +133,7 @@ export default function Home() {
               Explore More
             </a>
           </div>
-          <div className="mt-[34px] grid gap-[20px] md:grid-cols-3">
+          <div className="mt-[28px] grid gap-[20px] sm:grid-cols-2 md:mt-[34px] md:grid-cols-3">
             {[1, 2, 3].map((n) => (
               <Image
                 key={n}
@@ -146,11 +150,11 @@ export default function Home() {
         {/* Footer / contact */}
         <footer
           id="contact"
-          className="relative mt-[100px] overflow-hidden rounded-[20px] border-t border-black/20 bg-orange px-[40px] pt-[40px] pb-[35px] text-white"
+          className="relative mt-[70px] overflow-hidden rounded-[20px] border-t border-black/20 bg-orange px-[20px] pt-[32px] pb-[35px] text-white md:mt-[100px] md:px-[40px] md:pt-[40px]"
         >
           <div className="flex flex-wrap justify-between gap-10">
             <div className="max-w-[512px]">
-              <h2 className="font-display text-[38px] leading-[45.6px]">
+              <h2 className="font-display text-[28px] leading-[1.2] md:text-[38px] md:leading-[45.6px]">
                 Let&apos;s make something worth remembering.
               </h2>
               <p className="mt-[10px] text-[16px] font-light leading-[20.8px]">
@@ -158,18 +162,22 @@ export default function Home() {
                 about design — my inbox is open.
               </p>
             </div>
-            <div className="flex w-[290px] flex-col gap-[24px]">
+            <div className="flex w-full max-w-[290px] flex-col gap-[24px]">
               <a
-                href="mailto:souvikm725@gmail.com"
+                href={EMAIL_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex h-[59px] items-center justify-center rounded-[10px] bg-surface-muted text-[18px] font-medium leading-[23.4px] text-orange"
               >
-                souvikm725@gmail.com
+                {EMAIL}
               </a>
               <ul className="flex items-center gap-[16px]">
                 {socials.map((s) => (
                   <li key={s.name}>
                     <a
                       href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       aria-label={s.name}
                       className="flex h-[60px] w-[60px] items-center justify-center rounded-full bg-surface-muted"
                     >
@@ -191,7 +199,7 @@ export default function Home() {
             © 2026 Souvik Mondal
           </p>
           {/* 8-frame walk cycle sprite (public/home/cat-walk-sprite.png); walks in front of the text */}
-          <div aria-hidden className="cat-walk pointer-events-none absolute bottom-[10px] left-0 z-10">
+          <div aria-hidden className="cat-walk absolute bottom-[10px] left-0 z-10 cursor-pointer">
             <div className="cat-walk-frames" />
           </div>
         </footer>

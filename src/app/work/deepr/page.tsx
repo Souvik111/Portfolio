@@ -15,7 +15,7 @@ const IMG = "/deepr";
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <p className="font-medium text-[18px] uppercase leading-[27px] tracking-[1.26px] text-blue-text">
+    <p className="font-medium text-[16px] uppercase leading-[24px] tracking-[1.26px] text-blue-text md:text-[18px] md:leading-[27px]">
       {children}
     </p>
   );
@@ -23,7 +23,7 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 
 function Heading({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="mt-[15px] font-display text-[32px] font-bold leading-[48px] text-ink">
+    <h2 className="mt-[15px] font-display text-[26px] font-bold leading-[1.35] text-ink md:text-[32px] md:leading-[48px]">
       {children}
     </h2>
   );
@@ -68,10 +68,10 @@ function KeyCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-[20px] border border-line-blue bg-surface p-[30px] pr-[35px]">
+    <div className="rounded-[20px] border border-line-blue bg-surface p-[24px] md:p-[30px] md:pr-[35px]">
       <Tag>{tag}</Tag>
       <h3
-        className="mt-[18px] font-display text-[28px] font-bold leading-[42px] text-ink"
+        className="mt-[18px] font-display text-[22px] font-bold leading-[1.4] text-ink md:text-[28px] md:leading-[42px]"
         style={{ maxWidth: titleWidth }}
       >
         {title}
@@ -142,16 +142,16 @@ export default function DeeprPage() {
               className="relative h-[43px] w-[150px] object-contain"
               priority
             />
-            <h1 className="relative mt-[16px] max-w-[952px] font-display text-[38px] font-bold leading-[57px] text-white">
+            <h1 className="relative mt-[16px] max-w-[952px] font-display text-[26px] font-bold leading-[1.4] text-white md:text-[38px] md:leading-[57px]">
               Every song you love has a whole world of people behind it. Most of
               them you&apos;ll never know their name.
             </h1>
           </div>
-          <div className="flex h-[127px] flex-col items-center bg-blue-band pt-[22px]">
+          <div className="flex min-h-[127px] flex-col items-center bg-blue-band px-6 pt-[22px] pb-[22px] md:pb-0">
             <p className="text-[14px] uppercase leading-[21px] tracking-[0.98px] text-white">
               company backed by
             </p>
-            <div className="mt-[16px] flex h-[46px] items-center gap-[47px]">
+            <div className="mt-[16px] flex flex-wrap items-center justify-center gap-x-[47px] gap-y-4">
               <Image
                 src={`${IMG}/backer-a16z.png`}
                 alt="a16z Talent x Opportunity"
@@ -185,7 +185,7 @@ export default function DeeprPage() {
         </section>
 
         {/* Stats */}
-        <section className="mt-[30px] grid grid-cols-2 rounded-[20px] border border-line bg-surface py-[38px] md:grid-cols-[327fr_287fr_299fr_287fr]">
+        <section className="mt-[30px] grid grid-cols-1 gap-y-6 rounded-[20px] border border-line bg-surface py-[28px] sm:grid-cols-2 md:gap-y-0 md:py-[38px] md:grid-cols-[327fr_287fr_299fr_287fr]">
           {[
             ["My Role", "Solo Designer — End to End"],
             ["Surfaces", "7 platforms designed"],
@@ -194,7 +194,7 @@ export default function DeeprPage() {
           ].map(([label, value], i) => (
             <div
               key={label}
-              className={`py-[3px] pr-[20px] ${i > 0 ? "pl-[52px] md:border-l md:border-line" : "pl-[38px]"}`}
+              className={`py-[3px] pr-[20px] ${i > 0 ? "pl-[24px] md:pl-[52px] md:border-l md:border-line" : "pl-[24px] md:pl-[38px]"}`}
             >
               <p className="text-[14px] uppercase leading-[21px] tracking-[0.98px] text-ink-soft">
                 {label}
@@ -243,8 +243,8 @@ export default function DeeprPage() {
               for a real product.
             </Body>
           </div>
-          <blockquote className="mt-[30px] rounded-r-[36px] border-l-[5px] border-blue bg-blue-tint pl-[36px] pr-[113px] pt-[41px] pb-[40px]">
-            <p className="font-display text-[28px] font-bold leading-[42px] text-blue-text">
+          <blockquote className="mt-[30px] rounded-r-[36px] border-l-[5px] border-blue bg-blue-tint pl-[24px] pr-[24px] pt-[30px] pb-[30px] md:pl-[36px] md:pr-[113px] md:pt-[41px] md:pb-[40px]">
+            <p className="font-display text-[22px] font-bold leading-[1.5] text-blue-text md:text-[28px] md:leading-[42px]">
               How do you make people care about information they&apos;ve never
               even known existed — and do it across seven completely different
               platforms without forcing a single visual language on any of them?
@@ -270,7 +270,7 @@ export default function DeeprPage() {
             </div>
           </div>
           <div className="mt-[30px] grid gap-[20px] md:grid-cols-2">
-            <div className="relative h-[524px] overflow-hidden rounded-[20px] bg-blue-tint p-[30px]">
+            <div className="relative overflow-hidden rounded-[20px] bg-blue-tint p-[24px] md:h-[524px] md:p-[30px]">
               <h3 className="font-display text-[28px] font-bold leading-[42px] text-ink">
                 The Curious Listener
               </h3>
@@ -287,10 +287,10 @@ export default function DeeprPage() {
                 alt="Illustration of a listener wearing headphones"
                 width={315}
                 height={330}
-                className="absolute left-[257px] top-[194px] h-[330px] w-[315px] object-contain"
+                className="mx-auto mt-6 h-[330px] w-[315px] max-w-full object-contain md:absolute md:left-[257px] md:top-[194px] md:mt-0"
               />
             </div>
-            <div className="relative h-[524px] overflow-hidden rounded-[20px] bg-blue-tint p-[30px]">
+            <div className="relative overflow-hidden rounded-[20px] bg-blue-tint p-[24px] md:h-[524px] md:p-[30px]">
               <h3 className="font-display text-[28px] font-bold leading-[42px] text-ink">
                 The Industry Insider
               </h3>
@@ -306,7 +306,7 @@ export default function DeeprPage() {
                 alt="Illustration of a musician playing guitar"
                 width={230}
                 height={379}
-                className="absolute left-[333px] top-[145px] h-[379px] w-[230px] object-contain"
+                className="mx-auto mt-6 h-[379px] w-[230px] max-w-full object-contain md:absolute md:left-[333px] md:top-[145px] md:mt-0"
               />
             </div>
           </div>
@@ -454,9 +454,9 @@ export default function DeeprPage() {
               Kilfoyle.
             </Body>
           </div>
-          <div className="mt-[30px] rounded-[20px] border border-line-blue bg-blue px-[30px] py-[32px]">
+          <div className="mt-[30px] rounded-[20px] border border-line-blue bg-blue px-[24px] py-[28px] md:px-[30px] md:py-[32px]">
             <Tag light>Solving a TV-Specific Problem</Tag>
-            <h3 className="mt-[15px] font-display text-[28px] font-bold leading-[42px] text-white">
+            <h3 className="mt-[15px] font-display text-[22px] font-bold leading-[1.4] text-white md:text-[28px] md:leading-[42px]">
               Typing with a remote is painful. So: a QR code.
             </h3>
             <p className="mt-[10px] max-w-[1064px] text-[18px] leading-[27px] text-white/70">
@@ -502,15 +502,30 @@ export default function DeeprPage() {
             </Body>
           </div>
           {/* Phone exports carry their drop shadow (376x732); bodies sit at 78.5,15 inside */}
-          <div className="relative mt-[40px] h-[584px] overflow-hidden rounded-[20px] bg-surface">
+          <div className="relative mt-[40px] overflow-hidden rounded-[20px] bg-surface xl:h-[584px]">
+            {/* small screens: crop each export (shadow padding) down to the phone body */}
+            <div className="grid grid-cols-2 justify-items-center gap-4 px-4 py-8 sm:grid-cols-4 xl:hidden">
+              {[1, 2, 3, 4].map((n) => (
+                <div key={n} className="aspect-[220/462] w-full max-w-[220px] overflow-hidden">
+                  <Image
+                    src={`${IMG}/phone-connects-${n}.png`}
+                    alt={`Connects flow screen ${n}`}
+                    width={376}
+                    height={732}
+                    className="-ml-[35.7%] -mt-[6.8%] h-auto w-[171.2%] max-w-none"
+                  />
+                </div>
+              ))}
+            </div>
             {[85, 355, 625, 895].map((x, i) => (
               <Image
                 key={x}
                 src={`${IMG}/phone-connects-${i + 1}.png`}
-                alt={`Connects flow screen ${i + 1}`}
+                alt=""
+                aria-hidden
                 width={376}
                 height={732}
-                className="absolute top-[55px] h-[732px] w-[376.5px] max-w-none"
+                className="absolute top-[55px] hidden h-[732px] w-[376.5px] max-w-none xl:block"
                 style={{ left: x - 78.5 }}
               />
             ))}
@@ -571,7 +586,7 @@ export default function DeeprPage() {
               like a feature the platform always should have had.
             </Body>
           </div>
-          <div className="mt-[46px] grid grid-cols-2 gap-y-[40px] rounded-[20px] bg-surface px-[30px] pt-[50px] pb-[50px] md:grid-cols-4">
+          <div className="mt-[46px] grid grid-cols-1 gap-y-[40px] rounded-[20px] bg-surface px-[20px] pt-[40px] pb-[40px] sm:grid-cols-2 md:grid-cols-4 md:px-[30px] md:pt-[50px] md:pb-[50px]">
             {[
               ["YouTube Music", "phone-ytmusic", true],
               ["YouTube", "phone-youtube", false],
@@ -616,11 +631,11 @@ export default function DeeprPage() {
         <section className="mt-[80px]">
           <div className="max-w-[775px]">
             <Eyebrow>07 — The Why Behind the What</Eyebrow>
-            <h2 className="mt-[10px] font-display text-[32px] font-bold leading-[48px] text-ink">
+            <h2 className="mt-[10px] font-display text-[26px] font-bold leading-[1.35] text-ink md:text-[32px] md:leading-[48px]">
               Three principles that defined Deepr&apos;s design.
             </h2>
           </div>
-          <div className="mt-[70px] grid gap-[20px] md:grid-cols-3">
+          <div className="mt-[50px] grid gap-[20px] md:mt-[70px] md:grid-cols-3">
             {[
               {
                 n: "01",
@@ -721,7 +736,7 @@ export default function DeeprPage() {
               shown here shipped as-is.
             </Body>
           </div>
-          <div className="mt-[38px] grid grid-cols-2 gap-[20px] md:grid-cols-4">
+          <div className="mt-[38px] grid grid-cols-1 gap-[20px] sm:grid-cols-2 md:grid-cols-4">
             {[
               ["icon-7", "Surfaces designed — iOS, Netflix, YouTube TV, YTM, YouTube, APEX, Amazon"],
               ["icon-concept", "Concept — full flows & hi-fi screens, unreleased"],
@@ -748,7 +763,7 @@ export default function DeeprPage() {
         </section>
 
         {/* Closing quote */}
-        <section className="relative mx-auto mt-[80px] max-w-[896px] overflow-hidden rounded-[20px] bg-blue px-[66px] pt-[65px] pb-[65px] text-center">
+        <section className="relative mx-auto mt-[80px] max-w-[896px] overflow-hidden rounded-[20px] bg-blue px-[24px] pt-[48px] pb-[48px] text-center md:px-[66px] md:pt-[65px] md:pb-[65px]">
           <Image
             aria-hidden
             src={`${IMG}/quote-notes.png`}
@@ -757,7 +772,7 @@ export default function DeeprPage() {
             className="pointer-events-none object-cover"
             sizes="896px"
           />
-          <p className="relative mx-auto max-w-[764px] font-display text-[32px] font-bold leading-[48px] text-white">
+          <p className="relative mx-auto max-w-[764px] font-display text-[24px] font-bold leading-[1.5] text-white md:text-[32px] md:leading-[48px]">
             &quot;Deepr taught me that the hardest design problem isn&apos;t
             making something look good — it&apos;s making something{" "}
             <span className="text-orange">invisible</span> feel important
