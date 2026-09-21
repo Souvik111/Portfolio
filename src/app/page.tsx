@@ -201,6 +201,11 @@ export default function Home() {
           </p>
           {/* 8-frame walk cycle sprite (public/home/cat-walk-sprite.png); walks in front of the text */}
           <div aria-hidden className="cat-walk absolute bottom-[10px] left-0 z-10 cursor-pointer">
+            <div className="cat-thought">
+              Let me go… 🐾
+              <i className="cat-thought-dot cat-thought-dot-1" />
+              <i className="cat-thought-dot cat-thought-dot-2" />
+            </div>
             <div className="cat-walk-frames" />
           </div>
         </footer>
