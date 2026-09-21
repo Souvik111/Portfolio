@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import MobileMenu from "./MobileMenu";
 
 type Variant = "home" | "case-study";
 
@@ -19,7 +20,7 @@ const caseStudyLinks = [
 
 function Pill({ links, active }: { links: typeof homeLinks; active: string }) {
   return (
-    <nav className="flex h-[52px] w-fit max-w-full items-center overflow-x-auto rounded-full border border-black/10 bg-surface-nav px-[7px] md:w-auto">
+    <nav className="flex h-[52px] items-center rounded-full border border-black/10 bg-surface-nav px-[7px]">
       {links.map((l) => (
         <Link
           key={l.label}
@@ -44,7 +45,7 @@ export default function Nav({
 }) {
   if (variant === "home") {
     return (
-      <header className="mx-auto flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-4 px-6 pt-[30px] md:grid md:grid-cols-[1fr_auto_1fr] xl:px-0">
+      <header className="mx-auto flex w-full max-w-[1200px] items-center justify-between gap-4 px-6 pt-[30px] md:grid md:grid-cols-[1fr_auto_1fr] xl:px-0">
         <Link
           href="/"
           aria-label="Home"
@@ -59,21 +60,22 @@ export default function Nav({
             priority
           />
         </Link>
-        <div className="order-last w-full md:order-none md:w-auto md:justify-self-center"><Pill links={homeLinks} active={active} /></div>
+        <div className="hidden md:block md:justify-self-center"><Pill links={homeLinks} active={active} /></div>
         <a
           href="/cv.pdf"
           target="_blank"
           rel="noopener"
-          className="flex h-[52px] items-center rounded-full bg-orange px-[25px] text-[16px] font-medium text-white md:justify-self-end"
+          className="hidden h-[52px] items-center rounded-full bg-orange px-[25px] text-[16px] font-medium text-white md:flex md:justify-self-end"
         >
           Read CV
         </a>
+        <MobileMenu links={homeLinks} active={active} cta={{ label: "Read CV", href: "/cv.pdf" }} />
       </header>
     );
   }
 
   return (
-    <header className="mx-auto flex w-full max-w-[1440px] flex-wrap items-center justify-between gap-4 px-6 pt-[30px] md:px-[150px]">
+    <header className="mx-auto flex w-full max-w-[1440px] items-center justify-between gap-4 px-6 pt-[30px] md:px-[150px]">
       <Link href="/" aria-label="Home">
         <Image
           src="/deepr/avatar.png"
@@ -84,7 +86,8 @@ export default function Nav({
           priority
         />
       </Link>
-      <Pill links={caseStudyLinks} active={active} />
+      <div className="hidden md:block"><Pill links={caseStudyLinks} active={active} /></div>
+      <MobileMenu links={caseStudyLinks} active={active} />
     </header>
   );
 }

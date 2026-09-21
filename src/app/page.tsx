@@ -150,6 +150,7 @@ export default function Home() {
         {/* Footer / contact */}
         <footer
           id="contact"
+          data-trail="light"
           className="relative mt-[70px] overflow-hidden rounded-[20px] border-t border-black/20 bg-orange px-[20px] pt-[32px] pb-[35px] text-white md:mt-[100px] md:px-[40px] md:pt-[40px]"
         >
           <div className="flex flex-wrap justify-between gap-10">

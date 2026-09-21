@@ -19,7 +19,7 @@ export default function CursorTrail() {
 
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext("2d")!;
-    const points: { x: number; y: number; t: number }[] = [];
+    const points: { x: number; y: number; t: number; c: string }[] = [];
     let cursor = { x: -100, y: -100 };
     let label: string | null = null;
     let badge = 0; // 0..1 scale, eased
@@ -40,8 +40,10 @@ export default function CursorTrail() {
 
     const move = (e: PointerEvent) => {
       cursor = { x: e.clientX, y: e.clientY };
-      points.push({ x: e.clientX, y: e.clientY, t: performance.now() });
       const el = e.target as Element | null;
+      // white trail over dark/orange surfaces so it stays visible
+      const c = el?.closest('[data-trail="light"]') ? "#fff" : ORANGE;
+      points.push({ x: e.clientX, y: e.clientY, t: performance.now(), c });
       label = el?.closest<HTMLElement>("[data-cursor-label]")?.dataset.cursorLabel ?? null;
     };
     const leave = () => {
@@ -61,7 +63,7 @@ export default function CursorTrail() {
         const a = points[i - 1];
         const b = points[i];
         const life = 1 - (now - b.t) / TRAIL_MS; // 1 = fresh, 0 = gone
-        ctx.strokeStyle = ORANGE;
+        ctx.strokeStyle = b.c;
         ctx.globalAlpha = Math.max(life, 0) * 0.9;
         ctx.lineWidth = 0.6 + life * 2.6;
         ctx.beginPath();
