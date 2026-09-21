@@ -137,3 +137,9 @@ html {
     animation: none;
   }
 }
+
+/* decorative videos: never show native chrome */
+video::-webkit-media-controls,
+video::-webkit-media-controls-enclosure {
+  display: none !important;
+}

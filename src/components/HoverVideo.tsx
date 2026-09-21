@@ -35,6 +35,10 @@ export default function HoverVideo({
       onMouseLeave={stop}
       onFocus={play}
       onBlur={stop}
+      onContextMenu={(e) => e.preventDefault()}
+      controlsList="nodownload noplaybackrate noremoteplayback"
+      disablePictureInPicture
+      disableRemotePlayback
       tabIndex={0}
       className={className}
     >

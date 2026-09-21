@@ -105,6 +105,9 @@ function TvFrame({ src, poster, alt }: { src: string; poster: string; alt: strin
         loop
         playsInline
         preload="metadata"
+        controlsList="nodownload noplaybackrate noremoteplayback"
+        disablePictureInPicture
+        disableRemotePlayback
         className="absolute left-[1.195%] top-[1.873%] h-[96.45%] w-[97.61%] object-cover"
       />
     </div>
@@ -589,6 +592,9 @@ export default function DeeprPage() {
                     loop
                     playsInline
                     preload="metadata"
+                    controlsList="nodownload noplaybackrate noremoteplayback"
+                    disablePictureInPicture
+                    disableRemotePlayback
                     className="mt-[14px] h-[405px] w-[200px] rounded-[30px] object-cover"
                   />
                 ) : (
