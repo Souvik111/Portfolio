@@ -36,7 +36,7 @@ export default function Home() {
       <div className="mx-auto w-full max-w-[1200px] px-6 xl:px-0">
         {/* Hero */}
         <section className="relative mt-[96px] min-h-[270px]">
-          <p className="text-[20px] font-light leading-[26px] text-black/70">
+          <p className="hello inline-block text-[20px] font-light leading-[26px] text-black/70">
             Hi, I&apos;m Souvik
             <span className="hello-wave inline-block" aria-hidden>
               👋

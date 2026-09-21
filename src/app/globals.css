@@ -74,6 +74,16 @@ html {
   transform-origin: 70% 70%;
   animation: hello-wave 1.8s ease-in-out 0.4s 2;
 }
+/* hovering "Hi, I'm Souvik" keeps the hand waving and turns the text orange */
+.hello {
+  transition: color 0.3s ease;
+}
+.hello:hover {
+  color: var(--orange);
+}
+.hello:hover .hello-wave {
+  animation: hello-wave 1.2s ease-in-out infinite;
+}
 
 /* headline turns orange on hover */
 .headline {
