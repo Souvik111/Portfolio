@@ -57,9 +57,12 @@ export default function Home() {
             3 years in, I&apos;ve learned to go beyond the interface. I design,
             prototype, build, and ship ideas with AI and code.
           </p>
-          {/* waves only while hovered (video is muted; audio stripped) */}
+          {/* waves only while hovered; transparent-background video (HEVC alpha for Safari, VP9 alpha elsewhere) */}
           <HoverVideo
-            src={`${IMG}/video/cat-wave.mp4`}
+            sources={[
+              { src: `${IMG}/video/cat-wave.mov`, type: 'video/mp4; codecs="hvc1"' },
+              { src: `${IMG}/video/cat-wave.webm`, type: "video/webm" },
+            ]}
             label="Pixel cat waving"
             className="absolute right-[52px] top-[-17px] hidden h-[270px] w-[245px] cursor-pointer object-cover lg:block"
           />

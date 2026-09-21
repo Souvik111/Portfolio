@@ -4,11 +4,12 @@ import { useRef } from "react";
 
 // Plays a muted looping clip only while hovered; rests on the first frame otherwise.
 export default function HoverVideo({
-  src,
+  sources,
   className,
   label,
 }: {
-  src: string;
+  /** ordered by preference; the browser picks the first it can play */
+  sources: { src: string; type: string }[];
   className?: string;
   label: string;
 }) {
@@ -25,7 +26,6 @@ export default function HoverVideo({
   return (
     <video
       ref={ref}
-      src={src}
       aria-label={label}
       muted
       loop
@@ -37,6 +37,10 @@ export default function HoverVideo({
       onBlur={stop}
       tabIndex={0}
       className={className}
-    />
+    >
+      {sources.map((s) => (
+        <source key={s.src} src={s.src} type={s.type} />
+      ))}
+    </video>
   );
 }
