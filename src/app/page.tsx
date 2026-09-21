@@ -196,14 +196,10 @@ export default function Home() {
           <p className="relative z-10 mt-[25px] text-[16px] font-light leading-[20.8px]">
             © 2026 Souvik Mondal
           </p>
-          <Image
-            src={`${IMG}/cat-walk.png`}
-            alt=""
-            aria-hidden
-            width={122}
-            height={82}
-            className="cat-walk pointer-events-none absolute bottom-0 left-0 h-[82px] w-[122px]"
-          />
+          {/* 8-frame walk cycle sprite (public/home/cat-walk-sprite.png, 360x240 per frame) */}
+          <div aria-hidden className="cat-walk pointer-events-none absolute bottom-0 left-0">
+            <div className="cat-walk-frames" />
+          </div>
         </footer>
       </div>
     </main>
