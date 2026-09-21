@@ -193,11 +193,11 @@ export default function Home() {
             </div>
           </div>
           <hr className="mt-[38px] border-white/20" />
-          <p className="relative z-10 mt-[25px] text-[16px] font-light leading-[20.8px]">
+          <p className="mt-[25px] text-[16px] font-light leading-[20.8px]">
             © 2026 Souvik Mondal
           </p>
-          {/* 8-frame walk cycle sprite (public/home/cat-walk-sprite.png, 360x240 per frame) */}
-          <div aria-hidden className="cat-walk pointer-events-none absolute bottom-0 left-0">
+          {/* 8-frame walk cycle sprite (public/home/cat-walk-sprite.png); walks in front of the text */}
+          <div aria-hidden className="cat-walk pointer-events-none absolute bottom-[10px] left-0 z-10">
             <div className="cat-walk-frames" />
           </div>
         </footer>
