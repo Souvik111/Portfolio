@@ -8,7 +8,7 @@ import { useEffect, useRef } from "react";
 // Only active for fine pointers (mouse/trackpad), never on touch.
 const TRAIL_MS = 700;
 const ORANGE = "#f0603c";
-const BADGE_R = 105;
+const BADGE_R = 75;
 
 export default function CursorTrail() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -85,11 +85,11 @@ export default function CursorTrail() {
         if (label && badge > 0.6) {
           ctx.fillStyle = "#fff";
           ctx.globalAlpha = (badge - 0.6) / 0.4;
-          ctx.font = `500 ${28 * badge}px ${displayFont}`;
+          ctx.font = `500 ${20 * badge}px ${displayFont}`;
           ctx.textAlign = "center";
           ctx.textBaseline = "middle";
           const lines = label.split("\\n");
-          const lh = 34 * badge;
+          const lh = 25 * badge;
           lines.forEach((line, i) => {
             ctx.fillText(line, cursor.x, cursor.y + (i - (lines.length - 1) / 2) * lh);
           });
