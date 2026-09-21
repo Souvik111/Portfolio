@@ -76,7 +76,7 @@ export default function Home() {
             <article key={w.title}>
               <Link
                 href={w.href}
-                className="block overflow-hidden rounded-[20px]"
+                className="group block overflow-hidden rounded-[20px]"
                 aria-label={w.title}
                 data-cursor-label={"View Case\\nstudy"}
               >
@@ -85,7 +85,7 @@ export default function Home() {
                   alt=""
                   width={590}
                   height={460}
-                  className="h-auto w-full"
+                  className="h-auto w-full transition-opacity duration-300 group-hover:opacity-60"
                 />
               </Link>
               <h2 className="mt-[20px] font-display text-[26px] font-medium leading-[31.2px] text-black">
