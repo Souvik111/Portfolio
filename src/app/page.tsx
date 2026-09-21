@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Nav from "@/components/Nav";
+import HoverVideo from "@/components/HoverVideo";
 
 const IMG = "/home";
 
@@ -56,14 +57,11 @@ export default function Home() {
             3 years in, I&apos;ve learned to go beyond the interface. I design,
             prototype, build, and ship ideas with AI and code.
           </p>
-          {/* TODO: swap for the waving-cat GIF/video once supplied (waves on hover) */}
-          <Image
-            src={`${IMG}/cat-wave.png`}
-            alt="Pixel cat"
-            width={480}
-            height={270}
-            priority
-            className="cat-wave absolute right-[-66px] top-[-17px] hidden h-[270px] w-[480px] lg:block"
+          {/* waves only while hovered (video is muted; audio stripped) */}
+          <HoverVideo
+            src={`${IMG}/video/cat-wave.mp4`}
+            label="Pixel cat waving"
+            className="absolute right-[52px] top-[-17px] hidden h-[270px] w-[245px] cursor-pointer object-cover lg:block"
           />
         </section>
 
