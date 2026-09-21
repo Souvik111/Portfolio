@@ -119,15 +119,15 @@ html {
 }
 @keyframes cat-frames {
   from { background-position: 0 0; }
-  to { background-position: -840px 0; }
+  to { background-position: -720px 0; }
 }
 .cat-walk {
   animation: cat-walk 22s linear infinite;
 }
 .cat-walk-frames {
-  width: 105px;
-  height: 70px;
-  background: url("/home/cat-walk-sprite.png") 0 0 / 840px 70px no-repeat;
+  width: 90px;
+  height: 60px;
+  background: url("/home/cat-walk-sprite.png") 0 0 / 720px 60px no-repeat;
   image-rendering: pixelated;
   animation: cat-frames 0.8s steps(8) infinite;
 }
