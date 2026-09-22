@@ -7,7 +7,7 @@ type Variant = "home" | "case-study";
 const homeLinks = [
   { label: "Home", href: "/" },
   { label: "Work", href: "/#work" },
-  { label: "Playground", href: "/#playground" },
+  { label: "Playground", href: "/playground" },
   { label: "About", href: "/#about" },
 ];
 
