@@ -127,7 +127,7 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
                       </div>
                     )}
                     {p.kind === "sketch" && (
-                      <div className="absolute inset-x-[8%] top-[7%] bottom-[9%]">
+                      <div className="sketch-on-paper absolute inset-x-[6%] top-[5%] bottom-[8%]">
                         <Image src={p.src} alt={`Sketch ${n}`} fill sizes="520px" draggable={false} className="object-contain" />
                       </div>
                     )}
