@@ -1,35 +1,25 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { PageFlip } from "page-flip";
 
 // "My Sketchbook" on the playground canvas. Click → a large open book over a blurred
-// page; lined paper pages with the sketches, page numbers, 3D page flips.
-// ← → (or the pill arrows) turn pages, Esc / ✕ closes. Read-only — nothing to write.
+// page with real page-curl turns (page-flip). ← → keys, the pill arrows, or dragging a
+// page corner turn pages; Esc / ✕ closes. Read-only — visitors can't write in it.
 
 const COVER = "/playground/sketchbook-cover.png";
 
-// Sheet k shows pages[2k] on its front (right side) and pages[2k+1] on its back (left side).
-// Page 0 = title page (never shown alone), then one sketch per page.
-const SKETCHES = [
-  "/playground/isometric-art.png",
-  "/playground/space-art.png",
-  "/playground/couple-illustration.png",
-  "/playground/13-reason-why.png",
-  "/playground/little-things.png",
-  "/playground/shawn-mendes.png",
-  "/playground/pixel-art.png",
-  "/playground/cat.png",
-];
-
-type PageData = { kind: "title" } | { kind: "sketch"; src: string } | { kind: "blank" };
+// Hand-made sketches, in order. Drop files in public/playground/sketches and list them here.
+const SKETCHES = ["/playground/sketches/01.png"];
 
 export default function Sketchbook({ x, y }: { x: number; y: number }) {
   const [open, setOpen] = useState(false);
-  const [flipped, setFlipped] = useState(1); // sheets turned; sheet 0 (cover) is always turned
   const [mounted, setMounted] = useState(false);
   const [size, setSize] = useState({ w: 520, h: 780 });
+  const bookRef = useRef<HTMLDivElement>(null);
+  const flipRef = useRef<PageFlip | null>(null);
   useEffect(() => setMounted(true), []);
 
   // page size follows the viewport (two pages side by side)
@@ -44,17 +34,40 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
     return () => window.removeEventListener("resize", fit);
   }, []);
 
-  // pages: [cover-front(unused), title, sketch1, sketch2, ...]
-  const pages: PageData[] = [{ kind: "blank" }, { kind: "title" }, ...SKETCHES.map((src) => ({ kind: "sketch" as const, src }))];
+  // pages: title, sketches…, padded to an even count
+  const pages: ({ kind: "title" } | { kind: "sketch"; src: string } | { kind: "blank" })[] = [
+    { kind: "title" },
+    ...SKETCHES.map((src) => ({ kind: "sketch" as const, src })),
+  ];
   if (pages.length % 2) pages.push({ kind: "blank" });
-  const sheets = pages.length / 2;
 
-  const next = useCallback(() => setFlipped((f) => Math.min(sheets - 1, f + 1)), [sheets]);
-  const prev = useCallback(() => setFlipped((f) => Math.max(1, f - 1)), []);
-  const close = useCallback(() => {
-    setOpen(false);
-    setFlipped(1);
-  }, []);
+  const close = useCallback(() => setOpen(false), []);
+  const next = useCallback(() => flipRef.current?.flipNext(), []);
+  const prev = useCallback(() => flipRef.current?.flipPrev(), []);
+
+  // mount the page-flip engine on the rendered pages
+  useEffect(() => {
+    if (!open || !bookRef.current) return;
+    const pf = new PageFlip(bookRef.current, {
+      width: size.w,
+      height: size.h,
+      size: "fixed",
+      showCover: false,
+      usePortrait: false,
+      drawShadow: true,
+      maxShadowOpacity: 0.45,
+      flippingTime: 900,
+      mobileScrollSupport: false,
+      showPageCorners: true,
+    });
+    pf.loadFromHTML(bookRef.current.querySelectorAll<HTMLElement>(".pf-page"));
+    flipRef.current = pf;
+    return () => {
+      pf.destroy();
+      flipRef.current = null;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, size.w, size.h]);
 
   useEffect(() => {
     if (!open) return;
@@ -66,8 +79,6 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open, next, prev, close]);
-
-  const { w: PW, h: PH } = size;
 
   return (
     <>
@@ -92,7 +103,6 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
             aria-modal
             aria-label="My sketchbook"
           >
-            {/* close */}
             <button
               type="button"
               onClick={close}
@@ -102,61 +112,49 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
               ✕
             </button>
 
-            {/* the book */}
-            <div className="relative" onClick={(e) => e.stopPropagation()} style={{ width: PW * 2, height: PH }}>
+            <div className="relative" onClick={(e) => e.stopPropagation()} style={{ width: size.w * 2, height: size.h }}>
               {/* cover/binding peeking out on both sides */}
               <div className="absolute inset-y-[-8px] inset-x-[-14px] rounded-[10px] bg-[#f0603c] shadow-[0_30px_60px_rgb(0_0_0/0.35)]" />
               <div className="absolute inset-y-[-4px] inset-x-[-6px] rounded-[8px] bg-[#fbe9e2]" />
 
-              <div className="book absolute inset-0">
-                {Array.from({ length: sheets }).map((_, k) => {
-                  const turned = k < flipped;
-                  return (
+              <div ref={bookRef} className="absolute inset-0">
+                {pages.map((p, n) => (
+                  <div key={n} className="pf-page relative overflow-hidden bg-white" style={{ width: size.w, height: size.h }}>
+                    {p.kind === "title" && (
+                      <div className="absolute left-[10%] top-[8%]">
+                        <p className="font-display text-[26px] font-bold text-ink">My Sketchbook</p>
+                        <p className="mt-1 text-[13px] font-light text-ink/60">my hand made sketches</p>
+                      </div>
+                    )}
+                    {p.kind === "sketch" && (
+                      <div className="absolute inset-x-[8%] top-[7%] bottom-[9%]">
+                        <Image src={p.src} alt={`Sketch ${n}`} fill sizes="520px" draggable={false} className="object-contain" />
+                      </div>
+                    )}
+                    <span className="absolute bottom-[3.5%] left-0 right-0 text-center text-[11px] italic text-ink/45">{n + 1}</span>
+                    {/* inner shadow towards the spine */}
                     <div
-                      key={k}
-                      className="sheet absolute top-0"
-                      style={{
-                        left: PW,
-                        width: PW,
-                        height: PH,
-                        transformOrigin: "left center",
-                        transform: `rotateY(${turned ? -180 : 0}deg)`,
-                        zIndex: turned ? k : sheets - k,
-                      }}
-                    >
-                      <Page data={pages[2 * k]} n={2 * k} side="front" />
-                      <Page data={pages[2 * k + 1]} n={2 * k + 1} side="back" />
-                    </div>
-                  );
-                })}
-                {/* spine */}
-                <div className="pointer-events-none absolute inset-y-0 left-1/2 z-[100] w-[28px] -translate-x-1/2 bg-gradient-to-r from-transparent via-black/15 to-transparent" />
+                      className={`pointer-events-none absolute inset-y-0 w-[60px] ${
+                        n % 2 === 0
+                          ? "right-0 bg-gradient-to-l from-black/10 to-transparent"
+                          : "left-0 bg-gradient-to-r from-black/10 to-transparent"
+                      }`}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* arrow pill */}
             <div
               className="absolute bottom-8 left-1/2 flex -translate-x-1/2 items-center gap-3 rounded-full bg-[#1c1c1c] py-3 pl-5 pr-3 text-[15px] font-medium text-white shadow-lg"
               onClick={(e) => e.stopPropagation()}
             >
               Use arrow keys to turn pages
               <span className="flex gap-1">
-                <button
-                  type="button"
-                  onClick={prev}
-                  disabled={flipped === 1}
-                  aria-label="Previous page"
-                  className="flex h-8 w-8 items-center justify-center rounded-md bg-white/15 disabled:opacity-30"
-                >
+                <button type="button" onClick={prev} aria-label="Previous page" className="flex h-8 w-8 items-center justify-center rounded-md bg-white/15">
                   ←
                 </button>
-                <button
-                  type="button"
-                  onClick={next}
-                  disabled={flipped === sheets - 1}
-                  aria-label="Next page"
-                  className="flex h-8 w-8 items-center justify-center rounded-md bg-white/15 disabled:opacity-30"
-                >
+                <button type="button" onClick={next} aria-label="Next page" className="flex h-8 w-8 items-center justify-center rounded-md bg-white/15">
                   →
                 </button>
               </span>
@@ -165,40 +163,5 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
           document.body
         )}
     </>
-  );
-}
-
-function Page({ data, n, side }: { data: PageData; n: number; side: "front" | "back" }) {
-  return (
-    <div
-      className="page page-paper absolute inset-0 overflow-hidden"
-      style={{
-        backfaceVisibility: "hidden",
-        transform: side === "back" ? "rotateY(180deg)" : undefined,
-      }}
-    >
-      {data.kind === "title" && (
-        <div className="absolute left-[10%] top-[8%]">
-          <p className="font-display text-[26px] font-bold text-ink">My Sketchbook</p>
-          <p className="mt-1 text-[13px] font-light text-ink/60">my hand made sketches</p>
-        </div>
-      )}
-      {data.kind === "sketch" && (
-        <div className="absolute inset-x-[10%] top-[13%] bottom-[12%]">
-          <Image src={data.src} alt={`Sketch ${n}`} fill sizes="520px" className="object-contain" />
-        </div>
-      )}
-      {n > 0 && (
-        <span className="absolute bottom-[4.5%] left-0 right-0 text-center text-[11px] italic text-ink/45">{n}</span>
-      )}
-      {/* inner shadow towards the spine */}
-      <div
-        className={`pointer-events-none absolute inset-y-0 w-[60px] ${
-          side === "front"
-            ? "left-0 bg-gradient-to-r from-black/12 to-transparent"
-            : "right-0 bg-gradient-to-l from-black/12 to-transparent"
-        }`}
-      />
-    </div>
   );
 }

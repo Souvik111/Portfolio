@@ -296,19 +296,3 @@ video::-webkit-media-controls-enclosure {
   to { opacity: 1; }
 }
 .book-backdrop { animation: book-in 0.25s ease; }
-.book { perspective: 2600px; transform-style: preserve-3d; }
-.sheet {
-  transform-style: preserve-3d;
-  transition: transform 0.9s cubic-bezier(0.4, 0.05, 0.2, 1);
-}
-/* ruled notebook paper: horizontal lines with a left margin */
-.page-paper {
-  background:
-    repeating-linear-gradient(0deg, transparent 0 33px, rgb(90 140 220 / 0.22) 33px 34px),
-    #fff;
-  background-position: 0 12%;
-  background-size: 80% 34px, auto;
-  background-repeat: repeat-y, no-repeat;
-  background-origin: content-box;
-  padding: 0 10%;
-}
