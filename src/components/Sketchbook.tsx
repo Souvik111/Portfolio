@@ -128,17 +128,17 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
                 {pages.map((p, n) => (
                   <div key={n} className="pf-page relative overflow-hidden bg-white" style={{ width: size.w, height: size.h }}>
                     {p.kind === "title" && (
-                      <div className="absolute left-[10%] right-[10%] top-[8%] text-center font-sans">
+                      <div className="absolute inset-x-[10%] inset-y-0 flex flex-col items-center justify-center text-center font-sans">
                         <p className="font-display text-[26px] font-bold text-ink">My Sketchbook</p>
                         <p className="mt-1 text-[13px] font-light text-ink/60">my hand made sketches</p>
                         <p className="mt-8 text-[15px] leading-[1.7] text-ink/80">
-                          Before Figma, there was a pencil. This is where my ideas still start —
+                          Before Figma, there was a pencil. This is where my ideas still start:
                           quick portraits, odd little characters, and whatever my hand wanders into
-                          when I&apos;m not designing screens. Drawn on paper, scanned as they are:
-                          the smudges, the wobbly lines, all of it.
+                          when I&apos;m not designing screens. Drawn on paper and scanned as they are,
+                          with the smudges, the wobbly lines, all of it.
                         </p>
                         <p className="mt-6 text-[15px] leading-[1.7] text-ink/80">
-                          Turn the page → and have a look.
+                          Turn the page and have a look.
                         </p>
                       </div>
                     )}
