@@ -210,11 +210,11 @@ export default function MusicCorner() {
         </div>
       </div>
 
-      {/* dancing cat sprite: 48 frames, 12x4 grid, 200x257 per cell, shown at 153x197 */}
+      {/* dancing cat sprite: 48 frames, 12x4 grid, 257x257 per cell, shown at 197x197 */}
       <div
         aria-hidden
         className={`cat-dance pointer-events-none absolute ${playing ? "cat-dance-on" : ""}`}
-        style={{ left: 1240, top: 310 }}
+        style={{ left: 1213, top: 310 }}
       />
     </>
   );
