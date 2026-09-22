@@ -262,7 +262,7 @@ video::-webkit-media-controls-enclosure {
 .cat-dance {
   width: 197px;
   height: 197px;
-  background: url("/playground/cat-dance-sprite.png") 0 0 / 2364px 788px no-repeat;
+  background: url("/playground/cat-dance-sprite-v2.png") 0 0 / 2364px 788px no-repeat;
   image-rendering: pixelated;
 }
 .cat-dance-on {
