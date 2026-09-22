@@ -4,55 +4,15 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 // "Now Playing" card, built 1:1 from the Figma frame (320x220 at 892,273).
-// Audio comes from Spotify's own (visually hidden) playlist embed, driven through
-// the Spotify IFrame API — so visitors logged into Spotify hear full tracks,
-// everyone else hears Spotify's 30s previews. Track names/art come from
-// /api/playlist + Spotify oEmbed. The pixel cat dances only while playing.
+// Plays a public Spotify playlist: track list comes from /api/playlist, audio is
+// Spotify's own 30-second preview for each track, cover art from Spotify oEmbed.
+// prev / next / seek all work. The pixel cat beside it dances (sprite sheet)
+// only while a track is playing.
 
 type Track = { id: string; title: string; artist: string; duration: number; preview: string };
 
-type Controller = {
-  togglePlay: () => void;
-  nextTrack: () => void;
-  previousTrack: () => void;
-  seek: (seconds: number) => void;
-  addListener: (
-    ev: string,
-    cb: (e: { data: { isPaused: boolean; isBuffering: boolean; duration: number; position: number } }) => void
-  ) => void;
-};
-type SpotifyApi = {
-  createController: (
-    el: HTMLElement,
-    opts: { uri: string; width: number; height: number },
-    cb: (c: Controller) => void
-  ) => void;
-};
-declare global {
-  interface Window {
-    onSpotifyIframeApiReady?: (api: SpotifyApi) => void;
-  }
-}
-
-// The API script only fires onSpotifyIframeApiReady once per page, so cache it
-// (React strict mode mounts twice in dev).
-let apiPromise: Promise<SpotifyApi> | null = null;
-function loadSpotifyApi(): Promise<SpotifyApi> {
-  if (!apiPromise) {
-    apiPromise = new Promise((resolve) => {
-      window.onSpotifyIframeApiReady = (api) => resolve(api);
-      const s = document.createElement("script");
-      s.src = "https://open.spotify.com/embed/iframe-api/v1";
-      s.async = true;
-      document.body.appendChild(s);
-    });
-  }
-  return apiPromise;
-}
-
 const IMG = "/playground";
-const PLAYLIST_ID = "1IxTCaR4wT1BnnOe4Ocv8f";
-const PLAYLIST_URL = `https://open.spotify.com/playlist/${PLAYLIST_ID}`;
+const PLAYLIST_URL = "https://open.spotify.com/playlist/1IxTCaR4wT1BnnOe4Ocv8f";
 
 const fmt = (s: number) => {
   if (!isFinite(s)) return "0:00";
@@ -62,20 +22,17 @@ const fmt = (s: number) => {
 };
 
 export default function MusicCorner() {
-  const hostRef = useRef<HTMLDivElement>(null);
-  const ctrl = useRef<Controller | null>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const [tracks, setTracks] = useState<Track[]>([]);
   const [i, setI] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const [t, setT] = useState(0); // seconds
-  const [dur, setDur] = useState(0); // seconds
+  const [t, setT] = useState(0);
+  const [dur, setDur] = useState(0);
   const [covers, setCovers] = useState<Record<string, string>>({});
-  const lastPos = useRef(0);
-  const tracksRef = useRef<Track[]>([]);
-  tracksRef.current = tracks;
+  const wantPlay = useRef(false); // keep playing across prev/next
   const track = tracks[i];
 
-  // playlist metadata (server route parses Spotify's embed page)
+  // playlist (server route parses Spotify's embed page)
   useEffect(() => {
     fetch("/api/playlist")
       .then((r) => r.json())
@@ -92,70 +49,66 @@ export default function MusicCorner() {
       .catch(() => {});
   }, [track, covers]);
 
-  // Spotify embed + IFrame API
-  useEffect(() => {
-    const host = hostRef.current;
-    if (!host) return;
-    const mount = document.createElement("div");
-    host.appendChild(mount);
-    let alive = true;
-
-    loadSpotifyApi().then((api) => {
-      if (!alive) return;
-      api.createController(mount, { uri: `spotify:playlist:${PLAYLIST_ID}`, width: 300, height: 380 }, (c) => {
-        ctrl.current = c;
-        c.addListener("playback_update", ({ data }) => {
-          setPlaying(!data.isPaused);
-          setT(data.position / 1000);
-          setDur(data.duration / 1000);
-          const list = tracksRef.current;
-          // full-length playback: identify the track by its duration
-          if (data.duration > 31000 && list.length) {
-            const k = list.findIndex((x) => Math.abs(x.duration - data.duration) < 1500);
-            if (k >= 0) setI(k);
-          } else if (!data.isPaused && data.position < lastPos.current - 5000) {
-            // preview mode: position jumped back → embed auto-advanced
-            setI((n) => (list.length ? (n + 1) % list.length : n));
-          }
-          lastPos.current = data.position;
-        });
-      });
-    });
-    return () => {
-      alive = false;
-      ctrl.current = null;
-      mount.remove();
-    };
-  }, []);
-
-  const toggle = () => ctrl.current?.togglePlay();
+  const toggle = () => {
+    const a = audioRef.current;
+    if (!a || !track) return;
+    if (a.paused) {
+      wantPlay.current = true;
+      a.play().catch(() => {});
+    } else {
+      wantPlay.current = false;
+      a.pause();
+    }
+  };
   const go = (d: number) => {
-    if (!ctrl.current) return;
-    if (d > 0) ctrl.current.nextTrack();
-    else ctrl.current.previousTrack();
-    setI((n) => (tracks.length ? (n + d + tracks.length) % tracks.length : n));
+    if (!tracks.length) return;
+    setI((i + d + tracks.length) % tracks.length);
     setT(0);
-    lastPos.current = 0;
   };
+  // when the track changes, resume if we were playing
+  useEffect(() => {
+    const a = audioRef.current;
+    if (!a || !track) return;
+    a.load();
+    if (wantPlay.current) a.play().catch(() => {});
+  }, [track]);
   const seek = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!ctrl.current || !dur) return;
+    const a = audioRef.current;
+    if (!a || !dur) return;
     const r = e.currentTarget.getBoundingClientRect();
-    const sec = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * dur;
-    ctrl.current.seek(sec);
-    setT(sec);
-    lastPos.current = sec * 1000;
+    a.currentTime = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * dur;
   };
+
+  useEffect(() => {
+    const a = audioRef.current;
+    if (!a) return;
+    const on = () => setPlaying(true);
+    const off = () => setPlaying(false);
+    const time = () => setT(a.currentTime);
+    const meta = () => setDur(a.duration);
+    const ended = () => setI((n) => (tracks.length ? (n + 1) % tracks.length : n)); // auto-advance
+    const err = () => setI((n) => (tracks.length ? (n + 1) % tracks.length : n)); // skip broken previews
+    a.addEventListener("play", on);
+    a.addEventListener("pause", off);
+    a.addEventListener("ended", ended);
+    a.addEventListener("timeupdate", time);
+    a.addEventListener("loadedmetadata", meta);
+    a.addEventListener("error", err);
+    return () => {
+      a.removeEventListener("play", on);
+      a.removeEventListener("pause", off);
+      a.removeEventListener("ended", ended);
+      a.removeEventListener("timeupdate", time);
+      a.removeEventListener("loadedmetadata", meta);
+      a.removeEventListener("error", err);
+    };
+  }, [tracks.length]);
 
   const pct = dur ? (t / dur) * 100 : 0;
 
   return (
     <>
-      {/* Spotify's own embed: kept inside the viewport (it lazy-loads) but invisible; the card below is the UI */}
-      <div
-        ref={hostRef}
-        aria-hidden
-        className="pointer-events-none fixed bottom-0 right-0 h-[380px] w-[300px] opacity-0"
-      />
+      <audio ref={audioRef} src={track?.preview} preload="metadata" />
 
       <div
         className="card-hover absolute overflow-hidden rounded-[11px] bg-[#2a2a2a] text-white"
