@@ -150,10 +150,10 @@ const principles = [
 ];
 
 const outcome = [
-  ["icon-tile-1", "Desktop screens — Operations Dashboard + Forecasting"],
-  ["icon-tile-2", "Mobile screens — designed for on-site use, not scaled down"],
-  ["icon-tile-3", "SaaS marketing visual — promotional image for the platform"],
-  ["icon-tile-4", "Full challenge — brief to final delivery"],
+  ["icon-tile-1.png", "Desktop screens — Operations Dashboard + Forecasting"],
+  ["icon-tile-2.svg", "Mobile screens — designed for on-site use, not scaled down"],
+  ["icon-tile-3.svg", "SaaS marketing visual — promotional image for the platform"],
+  ["icon-tile-4.svg", "Full challenge — brief to final delivery"],
 ];
 
 /* ---------- page ---------- */
@@ -528,7 +528,7 @@ export default function PiexPage() {
                 className="flex min-h-[296px] flex-col items-center rounded-[20px] bg-sand px-[32px] pt-[34px] pb-[30px]"
               >
                 <Image
-                  src={`${IMG}/${icon}.png`}
+                  src={`${IMG}/${icon}`}
                   alt=""
                   width={100}
                   height={100}
