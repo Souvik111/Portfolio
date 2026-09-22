@@ -70,14 +70,15 @@ function Heading({ x, y, children }: { x: number; y: number; children: string })
 
 export default function PlaygroundPage() {
   return (
-    <main className="flex h-dvh flex-col bg-bg">
-      <div className="relative z-10 shrink-0 pb-[20px]">
+    <main className="relative h-dvh bg-bg">
+      {/* nav floats over the canvas so the dot grid runs edge to edge; gaps between items stay draggable */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 [&_a]:pointer-events-auto [&_button]:pointer-events-auto [&_nav]:pointer-events-auto">
         <Nav variant="home" active="Playground" />
       </div>
-      <div className="min-h-0 flex-1">
+      <div className="h-full">
         <PanZoomCanvas world={{ width: 1600, height: 1080 }}>
-          {/* Figma frame had the nav inside it; the nav lives outside the canvas here, so lift everything by 170 */}
-          <div className="absolute left-0 top-[-170px]">
+          {/* Figma frame coordinates, lifted slightly so the first row sits just under the floating nav */}
+          <div className="absolute left-0 top-[-60px]">
             <Heading x={48} y={210}>Some of my digital artworks</Heading>
             {digital.map((a) => <ArtCard key={a.file} a={a} />)}
 
