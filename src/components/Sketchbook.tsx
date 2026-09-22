@@ -26,6 +26,7 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [size, setSize] = useState({ w: 520, h: 780 });
+  const [portrait, setPortrait] = useState(false); // phones: one page at a time
   const bookRef = useRef<HTMLDivElement>(null);
   const flipRef = useRef<PageFlip | null>(null);
   useEffect(() => setMounted(true), []);
@@ -33,8 +34,12 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
   // page size follows the viewport (two pages side by side)
   useEffect(() => {
     const fit = () => {
-      const h = Math.min(780, window.innerHeight * 0.78);
-      const w = Math.min(520, (window.innerWidth - 160) / 2, h * 0.68);
+      const single = window.innerWidth < 768;
+      setPortrait(single);
+      const h = Math.min(780, window.innerHeight * (single ? 0.7 : 0.78));
+      const w = single
+        ? Math.min(520, window.innerWidth - 48, h * 0.68)
+        : Math.min(520, (window.innerWidth - 160) / 2, h * 0.68);
       setSize({ w: Math.round(w), h: Math.round(Math.min(h, w / 0.68)) });
     };
     fit();
@@ -61,7 +66,7 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
       height: size.h,
       size: "fixed",
       showCover: false,
-      usePortrait: false,
+      usePortrait: portrait,
       drawShadow: true,
       maxShadowOpacity: 0.45,
       flippingTime: 900,
@@ -75,7 +80,7 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
       flipRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, size.w, size.h]);
+  }, [open, size.w, size.h, portrait]);
 
   useEffect(() => {
     if (!open) return;
@@ -115,12 +120,16 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
               type="button"
               onClick={close}
               aria-label="Close"
-              className="absolute right-8 top-8 flex h-10 w-10 items-center justify-center rounded-full bg-[#e5322d] text-[16px] text-white shadow-lg transition-transform hover:scale-110"
+              className="absolute right-4 top-4 flex h-10 w-10 md:right-8 md:top-8 items-center justify-center rounded-full bg-[#e5322d] text-[16px] text-white shadow-lg transition-transform hover:scale-110"
             >
               ✕
             </button>
 
-            <div className="relative" onClick={(e) => e.stopPropagation()} style={{ width: size.w * 2, height: size.h }}>
+            <div
+              className="relative"
+              onClick={(e) => e.stopPropagation()}
+              style={{ width: size.w * (portrait ? 1 : 2), height: size.h }}
+            >
               {/* cover/binding peeking out on both sides */}
               <div className="absolute inset-y-[-8px] inset-x-[-14px] rounded-[10px] bg-[#f0603c] shadow-[0_30px_60px_rgb(0_0_0/0.35)]" />
               <div className="absolute inset-y-[-4px] inset-x-[-6px] rounded-[8px] bg-[#fbe9e2]" />
@@ -130,15 +139,15 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
                   <div key={n} className="pf-page relative overflow-hidden bg-white" style={{ width: size.w, height: size.h }}>
                     {p.kind === "title" && (
                       <div className="absolute inset-x-[10%] inset-y-0 flex flex-col items-center justify-center text-center font-sans">
-                        <p className="font-display text-[26px] font-bold text-ink">My Sketchbook</p>
-                        <p className="mt-1 text-[13px] font-light text-ink/60">my hand made sketches</p>
-                        <p className="mt-8 text-[15px] leading-[1.7] text-ink/80">
+                        <p className="font-display font-bold text-ink" style={{ fontSize: size.w * 0.05 }}>My Sketchbook</p>
+                        <p className="mt-1 font-light text-ink/60" style={{ fontSize: size.w * 0.025 }}>my hand made sketches</p>
+                        <p className="mt-[6%] leading-[1.7] text-ink/80" style={{ fontSize: size.w * 0.029 }}>
                           Before Figma, there was a pencil. This is where my ideas still start:
                           quick portraits, odd little characters, and whatever my hand wanders into
                           when I&apos;m not designing screens. Drawn on paper and scanned as they are,
                           with the smudges, the wobbly lines, all of it.
                         </p>
-                        <p className="mt-6 text-[15px] leading-[1.7] text-ink/80">
+                        <p className="mt-[5%] leading-[1.7] text-ink/80" style={{ fontSize: size.w * 0.029 }}>
                           Turn the page and have a look.
                         </p>
                       </div>
@@ -168,10 +177,11 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
             </div>
 
             <div
-              className="absolute bottom-8 left-1/2 flex -translate-x-1/2 items-center gap-3 rounded-full bg-[#1c1c1c] py-3 pl-5 pr-3 text-[15px] font-medium text-white shadow-lg"
+              className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-3 whitespace-nowrap rounded-full bg-[#1c1c1c] py-3 pl-5 pr-3 text-[15px] font-medium text-white shadow-lg"
               onClick={(e) => e.stopPropagation()}
             >
-              Use arrow keys to turn pages
+              <span className="hidden md:inline">Use arrow keys to turn pages</span>
+              <span className="md:hidden">Turn pages</span>
               <span className="flex gap-1">
                 <button type="button" onClick={prev} aria-label="Previous page" className="flex h-8 w-8 items-center justify-center rounded-md bg-white/15">
                   ←
