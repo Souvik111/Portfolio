@@ -113,7 +113,6 @@ export default function MusicCorner() {
       <div
         className="card-hover absolute overflow-hidden rounded-[11px] bg-[#2a2a2a] text-white"
         style={{ left: 892, top: 273, width: 320, height: 220 }}
-        onPointerDown={(e) => e.stopPropagation()}
       >
         {/* header */}
         <div className="relative h-[37px]">

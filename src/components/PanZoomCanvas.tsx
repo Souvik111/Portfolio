@@ -82,8 +82,9 @@ export default function PanZoomCanvas({
 
     const onDown = (e: PointerEvent) => {
       if (e.button !== 0 && e.pointerType === "mouse") return;
+      // let buttons / links / sliders inside the canvas work normally
+      if ((e.target as Element).closest("button, a, [role=slider], input, select, textarea")) return;
       pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      el.setPointerCapture(e.pointerId);
       last = { x: e.clientX, y: e.clientY };
       moved = false;
       el.classList.add("cursor-grabbing");
@@ -137,17 +138,17 @@ export default function PanZoomCanvas({
     };
 
     el.addEventListener("pointerdown", onDown);
-    el.addEventListener("pointermove", onMove);
-    el.addEventListener("pointerup", onUp);
-    el.addEventListener("pointercancel", onUp);
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointercancel", onUp);
     el.addEventListener("click", onClick, true);
     el.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("resize", onResize);
     return () => {
       el.removeEventListener("pointerdown", onDown);
-      el.removeEventListener("pointermove", onMove);
-      el.removeEventListener("pointerup", onUp);
-      el.removeEventListener("pointercancel", onUp);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onUp);
       el.removeEventListener("click", onClick, true);
       el.removeEventListener("wheel", onWheel);
       window.removeEventListener("resize", onResize);
