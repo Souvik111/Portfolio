@@ -214,7 +214,7 @@ export default function MusicCorner() {
       <div
         aria-hidden
         className={`cat-dance pointer-events-none absolute ${playing ? "cat-dance-on" : ""}`}
-        style={{ left: 1218, top: 310 }}
+        style={{ left: 1240, top: 310 }}
       />
     </>
   );
