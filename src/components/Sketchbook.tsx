@@ -29,6 +29,10 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
   const [portrait, setPortrait] = useState(false); // phones: one page at a time
   const bookRef = useRef<HTMLDivElement>(null);
   const flipRef = useRef<PageFlip | null>(null);
+  const coverBtnRef = useRef<HTMLButtonElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const [closing, setClosing] = useState(false);
+  const [flyTo, setFlyTo] = useState<string | null>(null); // transform that lands on the canvas cover
   useEffect(() => setMounted(true), []);
 
   // page size follows the viewport (two pages side by side)
@@ -54,7 +58,27 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
   ];
   if (pages.length % 2) pages.push({ kind: "blank" });
 
-  const close = useCallback(() => setOpen(false), []);
+  const close = useCallback(() => {
+    if (closing) return;
+    // where the cover sits on screen right now
+    const c = coverBtnRef.current?.getBoundingClientRect();
+    const st = stageRef.current?.getBoundingClientRect();
+    if (c && st) {
+      const dx = c.left + c.width / 2 - (st.left + st.width / 2);
+      const dy = c.top + c.height / 2 - (st.top + st.height / 2);
+      const sc = c.width / size.w; // stage collapses to one page width first
+      setFlyTo(`translate(${dx}px, ${dy}px) scale(${sc})`);
+    } else {
+      setFlyTo("scale(0.3)");
+    }
+    setClosing(true);
+    flipRef.current?.flip(0); // pages snap shut
+    setTimeout(() => {
+      setOpen(false);
+      setClosing(false);
+      setFlyTo(null);
+    }, 1050);
+  }, [closing, size.w]);
   const next = useCallback(() => flipRef.current?.flipNext(), []);
   const prev = useCallback(() => flipRef.current?.flipPrev(), []);
 
@@ -97,10 +121,11 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
     <>
       {/* notebook on the canvas: 222x278 at Figma (179,1297) */}
       <button
+        ref={coverBtnRef}
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Open my sketchbook"
-        className="sketchbook-cover absolute block cursor-pointer"
+        className={`sketchbook-cover absolute block cursor-pointer ${open ? "opacity-0" : ""}`}
         style={{ left: x, top: y, width: 222, height: 278 }}
       >
         <Image src={COVER} alt="" width={222} height={278} draggable={false} className="h-[278px] w-[222px]" />
@@ -110,7 +135,7 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
         open &&
         createPortal(
           <div
-            className="book-backdrop fixed inset-0 z-[200] flex items-center justify-center bg-black/25 backdrop-blur-md"
+            className={`book-backdrop fixed inset-0 z-[200] flex items-center justify-center bg-black/25 backdrop-blur-md ${closing ? "book-backdrop-out" : ""}`}
             onClick={close}
             role="dialog"
             aria-modal
@@ -126,10 +151,22 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
             </button>
 
             <div
-              className="relative"
+              ref={stageRef}
+              className={`book-stage relative ${closing ? "book-stage-closing" : ""}`}
               onClick={(e) => e.stopPropagation()}
-              style={{ width: size.w * (portrait ? 1 : 2), height: size.h }}
+              style={{
+                width: size.w * (portrait ? 1 : 2),
+                height: size.h,
+                transform: flyTo ?? undefined,
+              }}
             >
+              {/* closed cover that fades in over the pages while flying home */}
+              <div
+                className="book-closed-cover pointer-events-none absolute top-0 z-[50] overflow-hidden rounded-[8px]"
+                style={{ left: portrait ? 0 : size.w, width: size.w, height: size.h }}
+              >
+                <Image src={COVER} alt="" fill sizes="520px" className="object-cover" />
+              </div>
               {/* cover/binding peeking out on both sides */}
               <div className="absolute inset-y-[-8px] inset-x-[-14px] rounded-[10px] bg-[#f0603c] shadow-[0_30px_60px_rgb(0_0_0/0.35)]" />
               <div className="absolute inset-y-[-4px] inset-x-[-6px] rounded-[8px] bg-[#fbe9e2]" />

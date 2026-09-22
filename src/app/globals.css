@@ -314,3 +314,25 @@ video::-webkit-media-controls-enclosure {
 .sketch-flat img {
   filter: none;
 }
+
+/* ---------- sketchbook close: pages shut, cover fades on, book flies back to its spot ---------- */
+.book-stage {
+  transform-origin: center;
+  will-change: transform;
+}
+.book-stage-closing {
+  transition: transform 0.85s cubic-bezier(0.55, 0, 0.3, 1) 0.15s;
+}
+.book-closed-cover {
+  opacity: 0;
+  transition: opacity 0.25s ease 0.35s;
+}
+.book-stage-closing .book-closed-cover {
+  opacity: 1;
+}
+.book-backdrop-out {
+  animation: book-out 0.6s ease 0.45s forwards;
+}
+@keyframes book-out {
+  to { opacity: 0; }
+}
