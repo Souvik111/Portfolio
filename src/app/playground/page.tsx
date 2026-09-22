@@ -57,6 +57,27 @@ function ArtCard({ a }: { a: Art }) {
   );
 }
 
+// Sticky-note intro (Figma 23:644): note + tape SVG over its shadow, text tilted 2.69° like the note.
+function StickyNote({ x, y }: { x: number; y: number }) {
+  return (
+    <div className="absolute" style={{ left: x, top: y, width: 731, height: 778 }}>
+      <Image src={`${IMG}/note-shadow.svg`} alt="" width={731} height={735} draggable={false} className="absolute left-0 top-[43px] h-[735px] w-[731px]" />
+      <Image src={`${IMG}/note.svg`} alt="" width={731} height={778} draggable={false} className="absolute left-0 top-0 h-[778px] w-[731px]" />
+      <div
+        className="absolute left-[92px] top-[118px] w-[542px] origin-top-left rotate-[2.69deg] font-display text-[28px] font-medium leading-[1.5] text-black"
+      >
+        <p>Welcome to Playground</p>
+        <p className="mt-[38px]">
+          Things I made when I probably should&apos;ve been working.&nbsp; Experiments, sketches,
+          prototypes, rabbit holes, and whatever else caught my curiosity.
+        </p>
+        <p className="mt-[38px]">Drag around and enjoy :)</p>
+        <p className="mt-[150px] pl-[400px]">-Souvik</p>
+      </div>
+    </div>
+  );
+}
+
 function Heading({ x, y, children }: { x: number; y: number; children: string }) {
   return (
     <h2
@@ -76,7 +97,7 @@ export default function PlaygroundPage() {
         <Nav variant="home" active="Playground" />
       </div>
       <div className="h-full">
-        <PanZoomCanvas world={{ width: 1600, height: 1080 }}>
+        <PanZoomCanvas world={{ width: 2420, height: 1330 }}>
           {/* Figma frame coordinates, lifted slightly so the first row sits just under the floating nav */}
           <div className="absolute left-0 top-[-60px]">
             <Heading x={48} y={210}>Some of my digital artworks</Heading>
@@ -87,6 +108,8 @@ export default function PlaygroundPage() {
 
             <Heading x={892} y={595}>Some AI generated arts</Heading>
             {ai.map((a) => <ArtCard key={a.file} a={a} />)}
+
+            <StickyNote x={1625} y={585} />
           </div>
         </PanZoomCanvas>
       </div>
