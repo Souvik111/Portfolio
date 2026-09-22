@@ -72,12 +72,12 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
       setFlyTo("scale(0.3)");
     }
     setClosing(true);
-    flipRef.current?.flip(0); // pages snap shut
+    // 1) fly home open (0.85s) → 2) cover swings shut in 3D (0.7s) → 3) swap for the real cover
     setTimeout(() => {
       setOpen(false);
       setClosing(false);
       setFlyTo(null);
-    }, 1050);
+    }, 1700);
   }, [closing, size.w]);
   const next = useCallback(() => flipRef.current?.flipNext(), []);
   const prev = useCallback(() => flipRef.current?.flipPrev(), []);
@@ -160,12 +160,14 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
                 transform: flyTo ?? undefined,
               }}
             >
-              {/* closed cover that fades in over the pages while flying home */}
+              {/* front cover: hinged on the spine, swings shut over the right page once the book has landed */}
               <div
-                className="book-closed-cover pointer-events-none absolute top-0 z-[50] overflow-hidden rounded-[8px]"
+                className="book-cover-hinge pointer-events-none absolute top-0 z-[50]"
                 style={{ left: portrait ? 0 : size.w, width: size.w, height: size.h }}
               >
-                <Image src={COVER} alt="" fill sizes="520px" className="object-cover" />
+                <div className="book-cover-leaf absolute inset-0 overflow-hidden rounded-r-[8px]">
+                  <Image src={COVER} alt="" fill sizes="520px" className="object-cover" />
+                </div>
               </div>
               {/* cover/binding peeking out on both sides */}
               <div className="absolute inset-y-[-8px] inset-x-[-14px] rounded-[10px] bg-[#f0603c] shadow-[0_30px_60px_rgb(0_0_0/0.35)]" />
