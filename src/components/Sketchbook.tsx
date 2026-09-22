@@ -12,7 +12,14 @@ import { PageFlip } from "page-flip";
 const COVER = "/playground/sketchbook-cover.png";
 
 // Hand-made sketches, in order. Drop files in public/playground/sketches and list them here.
-const SKETCHES = ["/playground/sketches/01.png"];
+// `pencil` = light graphite work that needs extra contrast on the white page.
+const SKETCHES: { src: string; pencil?: boolean }[] = [
+  { src: "/playground/sketches/01.png" },
+  { src: "/playground/sketches/02.png", pencil: true },
+  { src: "/playground/sketches/03.png" },
+  { src: "/playground/sketches/04.png" },
+  { src: "/playground/sketches/05.png" },
+];
 
 export default function Sketchbook({ x, y }: { x: number; y: number }) {
   const [open, setOpen] = useState(false);
@@ -35,9 +42,9 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
   }, []);
 
   // pages: title, sketches…, padded to an even count
-  const pages: ({ kind: "title" } | { kind: "sketch"; src: string } | { kind: "blank" })[] = [
+  const pages: ({ kind: "title" } | { kind: "sketch"; src: string; pencil?: boolean } | { kind: "blank" })[] = [
     { kind: "title" },
-    ...SKETCHES.map((src) => ({ kind: "sketch" as const, src })),
+    ...SKETCHES.map((sk) => ({ kind: "sketch" as const, ...sk })),
   ];
   if (pages.length % 2) pages.push({ kind: "blank" });
 
@@ -121,13 +128,22 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
                 {pages.map((p, n) => (
                   <div key={n} className="pf-page relative overflow-hidden bg-white" style={{ width: size.w, height: size.h }}>
                     {p.kind === "title" && (
-                      <div className="absolute left-[10%] top-[8%]">
+                      <div className="absolute left-[10%] right-[10%] top-[8%]">
                         <p className="font-display text-[26px] font-bold text-ink">My Sketchbook</p>
                         <p className="mt-1 text-[13px] font-light text-ink/60">my hand made sketches</p>
+                        <p className="mt-8 text-[15px] leading-[1.7] text-ink/80">
+                          Before Figma, there was a pencil. This is where my ideas still start —
+                          quick portraits, odd little characters, and whatever my hand wanders into
+                          when I&apos;m not designing screens. Drawn on paper, scanned as they are:
+                          the smudges, the wobbly lines, all of it.
+                        </p>
+                        <p className="mt-6 text-[15px] leading-[1.7] text-ink/80">
+                          Turn the page → and have a look.
+                        </p>
                       </div>
                     )}
                     {p.kind === "sketch" && (
-                      <div className="sketch-on-paper absolute inset-x-[6%] top-[5%] bottom-[8%]">
+                      <div className={`sketch-on-paper absolute inset-x-[6%] top-[5%] bottom-[8%] ${p.pencil ? "sketch-pencil" : ""}`}>
                         <Image src={p.src} alt={`Sketch ${n}`} fill sizes="520px" draggable={false} className="object-contain" />
                       </div>
                     )}

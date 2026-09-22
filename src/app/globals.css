@@ -311,3 +311,7 @@ video::-webkit-media-controls-enclosure {
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
 }
+/* faint graphite sketches: pull the paper to white and darken the pencil */
+.sketch-pencil img {
+  filter: contrast(1.9) brightness(1.12) saturate(0.5);
+}
