@@ -21,16 +21,33 @@ type Controller = {
     cb: (e: { data: { isPaused: boolean; isBuffering: boolean; duration: number; position: number } }) => void
   ) => void;
 };
+type SpotifyApi = {
+  createController: (
+    el: HTMLElement,
+    opts: { uri: string; width: number; height: number },
+    cb: (c: Controller) => void
+  ) => void;
+};
 declare global {
   interface Window {
-    onSpotifyIframeApiReady?: (api: {
-      createController: (
-        el: HTMLElement,
-        opts: { uri: string; width: number; height: number },
-        cb: (c: Controller) => void
-      ) => void;
-    }) => void;
+    onSpotifyIframeApiReady?: (api: SpotifyApi) => void;
   }
+}
+
+// The API script only fires onSpotifyIframeApiReady once per page, so cache it
+// (React strict mode mounts twice in dev).
+let apiPromise: Promise<SpotifyApi> | null = null;
+function loadSpotifyApi(): Promise<SpotifyApi> {
+  if (!apiPromise) {
+    apiPromise = new Promise((resolve) => {
+      window.onSpotifyIframeApiReady = (api) => resolve(api);
+      const s = document.createElement("script");
+      s.src = "https://open.spotify.com/embed/iframe-api/v1";
+      s.async = true;
+      document.body.appendChild(s);
+    });
+  }
+  return apiPromise;
 }
 
 const IMG = "/playground";
@@ -81,8 +98,10 @@ export default function MusicCorner() {
     if (!host) return;
     const mount = document.createElement("div");
     host.appendChild(mount);
+    let alive = true;
 
-    window.onSpotifyIframeApiReady = (api) => {
+    loadSpotifyApi().then((api) => {
+      if (!alive) return;
       api.createController(mount, { uri: `spotify:playlist:${PLAYLIST_ID}`, width: 300, height: 380 }, (c) => {
         ctrl.current = c;
         c.addListener("playback_update", ({ data }) => {
@@ -101,14 +120,10 @@ export default function MusicCorner() {
           lastPos.current = data.position;
         });
       });
-    };
-    const s = document.createElement("script");
-    s.src = "https://open.spotify.com/embed/iframe-api/v1";
-    s.async = true;
-    document.body.appendChild(s);
+    });
     return () => {
-      delete window.onSpotifyIframeApiReady;
-      s.remove();
+      alive = false;
+      ctrl.current = null;
       mount.remove();
     };
   }, []);
@@ -135,8 +150,12 @@ export default function MusicCorner() {
 
   return (
     <>
-      {/* Spotify's own embed lives off-screen; the card below is the UI */}
-      <div ref={hostRef} aria-hidden className="fixed left-[-9999px] top-0 h-[380px] w-[300px]" />
+      {/* Spotify's own embed: kept inside the viewport (it lazy-loads) but invisible; the card below is the UI */}
+      <div
+        ref={hostRef}
+        aria-hidden
+        className="pointer-events-none fixed bottom-0 right-0 h-[380px] w-[300px] opacity-0"
+      />
 
       <div
         className="card-hover absolute overflow-hidden rounded-[11px] bg-[#2a2a2a] text-white"
