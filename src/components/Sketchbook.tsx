@@ -16,7 +16,7 @@ const COVER = "/playground/sketchbook-cover.png";
 // `flat` = already on white paper; skip the photo brightness lift so lines stay dark.
 const SKETCHES: { src: string; flat?: boolean }[] = [
   { src: "/playground/sketches/01.png" },
-  { src: "/playground/sketches/02-ganesha-v3.png", flat: true },
+  { src: "/playground/sketches/02-ganesha-v5.png", flat: true },
   { src: "/playground/sketches/03.png" },
   { src: "/playground/sketches/04.png" },
   { src: "/playground/sketches/05.png" },
