@@ -13,9 +13,10 @@ const COVER = "/playground/sketchbook-cover.png";
 
 // Hand-made sketches, in order. Drop files in public/playground/sketches and list them here.
 // Pencil scans are pre-levelled to white paper (see ffmpeg curves in git history).
-const SKETCHES: { src: string }[] = [
+// `flat` = already on white paper; skip the photo brightness lift so lines stay dark.
+const SKETCHES: { src: string; flat?: boolean }[] = [
   { src: "/playground/sketches/01.png" },
-  { src: "/playground/sketches/02-ganesha.png" },
+  { src: "/playground/sketches/02-ganesha-v2.png", flat: true },
   { src: "/playground/sketches/03.png" },
   { src: "/playground/sketches/04.png" },
   { src: "/playground/sketches/05.png" },
@@ -42,7 +43,7 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
   }, []);
 
   // pages: title, sketches…, padded to an even count
-  const pages: ({ kind: "title" } | { kind: "sketch"; src: string } | { kind: "blank" })[] = [
+  const pages: ({ kind: "title" } | { kind: "sketch"; src: string; flat?: boolean } | { kind: "blank" })[] = [
     { kind: "title" },
     ...SKETCHES.map((sk) => ({ kind: "sketch" as const, ...sk })),
   ];
@@ -143,7 +144,7 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
                       </div>
                     )}
                     {p.kind === "sketch" && (
-                      <div className="sketch-on-paper absolute inset-x-[6%] top-[5%] bottom-[8%]">
+                      <div className={`sketch-on-paper absolute inset-x-[6%] top-[5%] bottom-[8%] ${p.flat ? "sketch-flat" : ""}`}>
                         <Image src={p.src} alt={`Sketch ${n}`} fill sizes="520px" draggable={false} className="object-contain" />
                       </div>
                     )}

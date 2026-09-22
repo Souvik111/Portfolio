@@ -311,3 +311,6 @@ video::-webkit-media-controls-enclosure {
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
 }
+.sketch-flat img {
+  filter: none;
+}
