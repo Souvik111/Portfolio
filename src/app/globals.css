@@ -292,18 +292,23 @@ video::-webkit-media-controls-enclosure {
   filter: drop-shadow(0 22px 30px rgb(0 0 0 / 0.25));
 }
 @keyframes book-in {
-  from { opacity: 0; transform: scale(0.8); }
-  to { opacity: 1; transform: scale(1); }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
-.book-backdrop { animation: book-in 0.3s ease; }
-.book { perspective: 2200px; transform-style: preserve-3d; }
+.book-backdrop { animation: book-in 0.25s ease; }
+.book { perspective: 2600px; transform-style: preserve-3d; }
 .sheet {
   transform-style: preserve-3d;
-  transition: transform 0.85s cubic-bezier(0.4, 0.05, 0.2, 1);
-  box-shadow: 0 12px 30px rgb(0 0 0 / 0.25);
+  transition: transform 0.9s cubic-bezier(0.4, 0.05, 0.2, 1);
 }
+/* ruled notebook paper: horizontal lines with a left margin */
 .page-paper {
   background:
-    repeating-linear-gradient(0deg, transparent 0 27px, rgb(0 0 0 / 0.06) 27px 28px),
-    #fdfaf2;
+    repeating-linear-gradient(0deg, transparent 0 33px, rgb(90 140 220 / 0.22) 33px 34px),
+    #fff;
+  background-position: 0 12%;
+  background-size: 80% 34px, auto;
+  background-repeat: repeat-y, no-repeat;
+  background-origin: content-box;
+  padding: 0 10%;
 }
