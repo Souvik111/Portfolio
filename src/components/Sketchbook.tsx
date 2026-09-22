@@ -12,10 +12,10 @@ import { PageFlip } from "page-flip";
 const COVER = "/playground/sketchbook-cover.png";
 
 // Hand-made sketches, in order. Drop files in public/playground/sketches and list them here.
-// `pencil` = light graphite work that needs extra contrast on the white page.
-const SKETCHES: { src: string; pencil?: boolean }[] = [
+// Pencil scans are pre-levelled to white paper (see ffmpeg curves in git history).
+const SKETCHES: { src: string }[] = [
   { src: "/playground/sketches/01.png" },
-  { src: "/playground/sketches/02.png", pencil: true },
+  { src: "/playground/sketches/02-ganesha.png" },
   { src: "/playground/sketches/03.png" },
   { src: "/playground/sketches/04.png" },
   { src: "/playground/sketches/05.png" },
@@ -42,7 +42,7 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
   }, []);
 
   // pages: title, sketches…, padded to an even count
-  const pages: ({ kind: "title" } | { kind: "sketch"; src: string; pencil?: boolean } | { kind: "blank" })[] = [
+  const pages: ({ kind: "title" } | { kind: "sketch"; src: string } | { kind: "blank" })[] = [
     { kind: "title" },
     ...SKETCHES.map((sk) => ({ kind: "sketch" as const, ...sk })),
   ];
@@ -143,17 +143,22 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
                       </div>
                     )}
                     {p.kind === "sketch" && (
-                      <div className={`sketch-on-paper absolute inset-x-[6%] top-[5%] bottom-[8%] ${p.pencil ? "sketch-pencil" : ""}`}>
+                      <div className="sketch-on-paper absolute inset-x-[6%] top-[5%] bottom-[8%]">
                         <Image src={p.src} alt={`Sketch ${n}`} fill sizes="520px" draggable={false} className="object-contain" />
                       </div>
                     )}
                     <span className="absolute bottom-[3.5%] left-0 right-0 text-center text-[11px] italic text-ink/45">{n + 1}</span>
                     {/* inner shadow towards the spine */}
                     <div
-                      className={`pointer-events-none absolute inset-y-0 w-[60px] ${
+                      className={`pointer-events-none absolute inset-y-0 w-[90px] ${
                         n % 2 === 0
-                          ? "right-0 bg-gradient-to-l from-black/10 to-transparent"
-                          : "left-0 bg-gradient-to-r from-black/10 to-transparent"
+                          ? "right-0 bg-gradient-to-l from-black/22 via-black/6 to-transparent"
+                          : "left-0 bg-gradient-to-r from-black/22 via-black/6 to-transparent"
+                      }`}
+                    />
+                    <div
+                      className={`pointer-events-none absolute inset-y-0 w-px bg-black/25 ${
+                        n % 2 === 0 ? "right-0" : "left-0"
                       }`}
                     />
                   </div>

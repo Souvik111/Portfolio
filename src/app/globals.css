@@ -311,7 +311,3 @@ video::-webkit-media-controls-enclosure {
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
 }
-/* pencil sketches are pre-levelled to white paper; skip the brightness lift */
-.sketch-pencil img {
-  filter: none;
-}
