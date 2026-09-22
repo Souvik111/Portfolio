@@ -64,7 +64,8 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
     const c = coverBtnRef.current?.getBoundingClientRect();
     const st = stageRef.current?.getBoundingClientRect();
     if (c && st) {
-      const dx = c.left + c.width / 2 - (st.left + st.width / 2);
+      const stageLeftPageCx = portrait ? st.left + st.width / 2 : st.left + st.width / 4;
+      const dx = c.left + c.width / 2 - stageLeftPageCx;
       const dy = c.top + c.height / 2 - (st.top + st.height / 2);
       const sc = c.width / size.w; // stage collapses to one page width first
       setFlyTo(`translate(${dx}px, ${dy}px) scale(${sc})`);
@@ -78,7 +79,7 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
       setClosing(false);
       setFlyTo(null);
     }, 1650);
-  }, [closing, size.w]);
+  }, [closing, size.w, portrait]);
   const next = useCallback(() => flipRef.current?.flipNext(), []);
   const prev = useCallback(() => flipRef.current?.flipPrev(), []);
 
@@ -160,12 +161,13 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
                 transform: flyTo ?? undefined,
               }}
             >
-              {/* front cover: hinged on the spine, swings shut over the right page once the book has landed */}
+              {/* front cover: hinged on the spine (centre), starts lying open on the RIGHT face-down,
+                  and swings over to lie on top of the LEFT page — like really closing a book */}
               <div
                 className="book-cover-hinge pointer-events-none absolute top-0 z-[50]"
-                style={{ left: portrait ? 0 : size.w, width: size.w, height: size.h }}
+                style={{ left: portrait ? 0 : 0, width: size.w, height: size.h }}
               >
-                <div className="book-cover-leaf absolute inset-0 overflow-hidden rounded-r-[8px]">
+                <div className="book-cover-leaf absolute inset-0 overflow-hidden rounded-l-[8px]">
                   <Image src={COVER} alt="" fill sizes="520px" className="object-cover" />
                 </div>
               </div>

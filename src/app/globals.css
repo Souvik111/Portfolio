@@ -326,18 +326,18 @@ video::-webkit-media-controls-enclosure {
 }
 .book-cover-hinge {
   transform-style: preserve-3d;
-  transform-origin: left center;
-  transform: rotateY(-180deg); /* lying open on the left, face down */
+  transform-origin: right center; /* the spine */
+  transform: rotateY(180deg); /* folded over onto the right page, face down (invisible) */
   opacity: 0;
 }
 .book-stage-closing .book-cover-hinge {
   opacity: 1;
-  transform: rotateY(0deg);
+  transform: rotateY(0deg); /* swung over onto the left page, face up */
   transition: transform 0.75s cubic-bezier(0.6, 0, 0.3, 1), opacity 0.01s linear;
 }
 .book-cover-leaf {
   backface-visibility: hidden;
-  box-shadow: -8px 0 18px rgb(0 0 0 / 0.25);
+  box-shadow: 8px 0 18px rgb(0 0 0 / 0.25);
 }
 .book-backdrop-out {
   animation: book-out 0.6s ease 1s forwards;
