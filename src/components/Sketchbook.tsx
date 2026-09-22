@@ -64,8 +64,8 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
     const c = coverBtnRef.current?.getBoundingClientRect();
     const st = stageRef.current?.getBoundingClientRect();
     if (c && st) {
-      const stageLeftPageCx = portrait ? st.left + st.width / 2 : st.left + st.width / 4;
-      const dx = c.left + c.width / 2 - stageLeftPageCx;
+      const coverCx = portrait ? st.left + st.width / 2 : st.left + (st.width * 3) / 4;
+      const dx = c.left + c.width / 2 - coverCx;
       const dy = c.top + c.height / 2 - (st.top + st.height / 2);
       const sc = c.width / size.w; // stage collapses to one page width first
       setFlyTo(`translate(${dx}px, ${dy}px) scale(${sc})`);
@@ -161,20 +161,16 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
                 transform: flyTo ?? undefined,
               }}
             >
-              {/* front cover: hinged on the spine (centre), starts lying open on the RIGHT face-down,
-                  and swings over to lie on top of the LEFT page — like really closing a book */}
+              {/* front cover: hinged on the spine (centre), starts lying open on the LEFT face-down,
+                  swings over onto the RIGHT page, then the left half collapses so only the closed book remains */}
               <div
                 className="book-cover-hinge pointer-events-none absolute top-0 z-[50]"
-                style={{ left: portrait ? 0 : 0, width: size.w, height: size.h }}
+                style={{ left: portrait ? 0 : size.w, width: size.w, height: size.h }}
               >
-                <div className="book-cover-leaf absolute inset-0 overflow-hidden rounded-l-[8px]">
+                <div className="book-cover-leaf absolute inset-0 overflow-hidden rounded-r-[8px]">
                   <Image src={COVER} alt="" fill sizes="520px" className="object-cover" />
                 </div>
               </div>
-              {/* cover/binding peeking out on both sides */}
-              <div className="absolute inset-y-[-8px] inset-x-[-14px] rounded-[10px] bg-[#f0603c] shadow-[0_30px_60px_rgb(0_0_0/0.35)]" />
-              <div className="absolute inset-y-[-4px] inset-x-[-6px] rounded-[8px] bg-[#fbe9e2]" />
-
               <div ref={bookRef} className="absolute inset-0">
                 {pages.map((p, n) => (
                   <div key={n} className="pf-page relative overflow-hidden bg-white" style={{ width: size.w, height: size.h }}>
