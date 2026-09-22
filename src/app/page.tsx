@@ -15,7 +15,7 @@ const work = [
     tags: ["ios App", "Multi-Platform", "0-1 Product", "Concept"],
   },
   {
-    href: "#",
+    href: "/work/piex",
     image: `${IMG}/work-solar.png`,
     title: "Solar Energy SaaS",
     desc: "Designed an operations dashboard and energy forecast model for an industrial solar monitoring platform.",

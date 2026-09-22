@@ -19,6 +19,12 @@
   --line: rgb(0 0 0 / 0.2);
   --line-blue: rgb(61 77 139 / 0.3);
   --orange: #f0603c;
+  /* PIEX case study: slate/sand palette */
+  --slate: #506c83;
+  --slate-deep: #62748e;
+  --slate-ink: #506c83;
+  --slate-tint: rgb(80 108 131 / 0.1);
+  --sand: #e7e4da;
 }
 
 @theme inline {
@@ -40,6 +46,11 @@
   --color-blue-band: var(--blue-band);
   --color-line: var(--line);
   --color-orange: var(--orange);
+  --color-slate: var(--slate);
+  --color-slate-deep: var(--slate-deep);
+  --color-slate-ink: var(--slate-ink);
+  --color-slate-tint: var(--slate-tint);
+  --color-sand: var(--sand);
   --font-sans: var(--font-dm-sans), system-ui, sans-serif;
   --font-display: var(--font-syne), var(--font-dm-sans), sans-serif;
 }
@@ -313,4 +324,9 @@ video::-webkit-media-controls-enclosure {
 }
 .sketch-flat img {
   filter: none;
+}
+
+/* PIEX: tint the shared asterisk icon to the slate palette */
+.slate-asterisk {
+  filter: brightness(0) saturate(100%) invert(43%) sepia(12%) saturate(1093%) hue-rotate(163deg) brightness(93%) contrast(88%);
 }
