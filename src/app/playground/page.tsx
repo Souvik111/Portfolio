@@ -37,7 +37,7 @@ function ArtCard({ a }: { a: Art }) {
   const img = a.big ? 192 : 176;
   return (
     <figure
-      className="absolute rounded-[10px] bg-white p-[8px]"
+      className="card-hover absolute rounded-[10px] bg-white p-[8px]"
       style={{ left: a.x, top: a.y, width: img + 16 }}
     >
       <Image

@@ -68,7 +68,7 @@ function KeyCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-[20px] border border-line-blue bg-surface p-[24px] md:p-[30px] md:pr-[35px]">
+    <div className="card-hover rounded-[20px] border border-line-blue bg-surface p-[24px] md:p-[30px] md:pr-[35px]">
       <Tag>{tag}</Tag>
       <h3
         className="mt-[18px] font-display text-[22px] font-bold leading-[1.4] text-ink md:text-[28px] md:leading-[42px]"

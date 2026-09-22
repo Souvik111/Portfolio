@@ -65,10 +65,8 @@ export default function Home() {
           </p>
           {/* waves only while hovered; transparent-background video (HEVC alpha for Safari, VP9 alpha elsewhere) */}
           <HoverVideo
-            sources={[
-              { src: `${IMG}/video/cat-wave.mov`, type: 'video/mp4; codecs="hvc1"' },
-              { src: `${IMG}/video/cat-wave.webm`, type: "video/webm" },
-            ]}
+            base={`${IMG}/video/cat-wave`}
+            poster={`${IMG}/cat-wave-poster.png`}
             label="Pixel cat waving"
             className="absolute right-[52px] top-[-17px] hidden h-[270px] w-[245px] cursor-pointer object-cover lg:block"
           />
@@ -80,7 +78,7 @@ export default function Home() {
             <article key={w.title}>
               <Link
                 href={w.href}
-                className="group block overflow-hidden rounded-[20px]"
+                className="card-hover group block overflow-hidden rounded-[20px]"
                 aria-label={w.title}
                 data-cursor-label={"View Case\\nstudy"}
               >
@@ -141,7 +139,7 @@ export default function Home() {
                 alt={`Website design ${n}`}
                 width={367}
                 height={367}
-                className="h-auto w-full rounded-[10px]"
+                className="card-hover h-auto w-full rounded-[10px]"
               />
             ))}
           </div>

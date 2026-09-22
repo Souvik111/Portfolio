@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { alphaVideoSources } from "@/lib/alphaVideo";
 
 // "Now Playing" card (Figma chrome) wrapping a real Spotify embed, plus the
 // pixel cat next to it that only dances while the track is actually playing.
@@ -26,6 +27,8 @@ export default function MusicCorner() {
   const embedRef = useRef<HTMLDivElement>(null);
   const catRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
+  const [catSources, setCatSources] = useState<{ src: string; type: string }[]>([]);
+  useEffect(() => setCatSources(alphaVideoSources("/playground/video/cat-dance")), []);
 
   // load the Spotify iframe API once and subscribe to playback state
   useEffect(() => {
@@ -61,7 +64,7 @@ export default function MusicCorner() {
     <>
       {/* player card: 320x220 at (892,273) */}
       <div
-        className="absolute overflow-hidden rounded-[11px] bg-[#2a2a2a]"
+        className="card-hover absolute overflow-hidden rounded-[11px] bg-[#2a2a2a]"
         style={{ left: 892, top: 273, width: 320, height: 220 }}
       >
         <div className="flex h-[37px] items-center gap-[10px] px-[12px]">
@@ -88,6 +91,7 @@ export default function MusicCorner() {
         loop
         playsInline
         preload="auto"
+        poster="/playground/cat-dance-poster.png"
         aria-label="Pixel cat with headphones, dances while music plays"
         onContextMenu={(e) => e.preventDefault()}
         controlsList="nodownload noplaybackrate noremoteplayback"
@@ -96,8 +100,9 @@ export default function MusicCorner() {
         className="pointer-events-none absolute"
         style={{ left: 1218, top: 310, width: 153, height: 197 }}
       >
-        <source src="/playground/video/cat-dance.mov" type='video/mp4; codecs="hvc1"' />
-        <source src="/playground/video/cat-dance.webm" type="video/webm" />
+        {catSources.map((src) => (
+          <source key={src.src} {...src} />
+        ))}
       </video>
     </>
   );

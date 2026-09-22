@@ -257,3 +257,16 @@ video::-webkit-media-controls-enclosure {
 .eq { animation: eq 0.7s ease-in-out infinite; }
 .eq-2 { animation-delay: 0.15s; }
 .eq-3 { animation-delay: 0.3s; }
+
+/* ---------- cards lift with a drop shadow on hover ---------- */
+.card-hover {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgb(0 0 0 / 0.16), 0 4px 10px rgb(0 0 0 / 0.06);
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-hover { transition: none; }
+  .card-hover:hover { transform: none; }
+}

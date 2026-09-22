@@ -1,19 +1,24 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { alphaVideoSources } from "@/lib/alphaVideo";
 
 // Plays a muted looping clip only while hovered; rests on the first frame otherwise.
 export default function HoverVideo({
-  sources,
+  base,
+  poster,
   className,
   label,
 }: {
-  /** ordered by preference; the browser picks the first it can play */
-  sources: { src: string; type: string }[];
+  /** path without extension; .webm / .mov alpha variants are picked per browser */
+  base: string;
+  poster?: string;
   className?: string;
   label: string;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
+  const [sources, setSources] = useState<{ src: string; type: string }[]>([]);
+  useEffect(() => setSources(alphaVideoSources(base)), [base]);
 
   // Never autoplay: rest on the first frame until the pointer is over it.
   useEffect(() => {
@@ -51,6 +56,7 @@ export default function HoverVideo({
       controlsList="nodownload noplaybackrate noremoteplayback"
       disablePictureInPicture
       disableRemotePlayback
+      poster={poster}
       className={className}
     >
       {sources.map((s) => (
