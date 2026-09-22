@@ -58,9 +58,12 @@ function ArtCard({ a }: { a: Art }) {
 }
 
 // Sticky-note intro (Figma 23:644): note + tape SVG over its shadow, text tilted 2.69° like the note.
-function StickyNote({ x, y }: { x: number; y: number }) {
+function StickyNote({ x, y, scale = 0.55 }: { x: number; y: number; scale?: number }) {
   return (
-    <div className="absolute" style={{ left: x, top: y, width: 731, height: 778 }}>
+    <div
+      className="absolute origin-top-left"
+      style={{ left: x, top: y, width: 731, height: 778, transform: `scale(${scale})` }}
+    >
       <Image src={`${IMG}/note-shadow.svg`} alt="" width={731} height={735} draggable={false} className="absolute left-0 top-[43px] h-[735px] w-[731px]" />
       <Image src={`${IMG}/note.svg`} alt="" width={731} height={778} draggable={false} className="absolute left-0 top-0 h-[778px] w-[731px]" />
       <div
@@ -97,7 +100,7 @@ export default function PlaygroundPage() {
         <Nav variant="home" active="Playground" />
       </div>
       <div className="h-full">
-        <PanZoomCanvas world={{ width: 2420, height: 1330 }}>
+        <PanZoomCanvas world={{ width: 2060, height: 1100 }}>
           {/* Figma frame coordinates, lifted slightly so the first row sits just under the floating nav */}
           <div className="absolute left-0 top-[-60px]">
             <Heading x={48} y={210}>Some of my digital artworks</Heading>
