@@ -72,12 +72,12 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
       setFlyTo("scale(0.3)");
     }
     setClosing(true);
-    // 1) fly home open (0.85s) → 2) cover swings shut in 3D (0.7s) → 3) swap for the real cover
+    // 1) cover swings shut in place (0.75s) → 2) closed book flies home (0.8s) → 3) swap for the real cover
     setTimeout(() => {
       setOpen(false);
       setClosing(false);
       setFlyTo(null);
-    }, 1700);
+    }, 1650);
   }, [closing, size.w]);
   const next = useCallback(() => flipRef.current?.flipNext(), []);
   const prev = useCallback(() => flipRef.current?.flipPrev(), []);
