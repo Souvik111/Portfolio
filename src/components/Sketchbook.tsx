@@ -128,7 +128,7 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
                 {pages.map((p, n) => (
                   <div key={n} className="pf-page relative overflow-hidden bg-white" style={{ width: size.w, height: size.h }}>
                     {p.kind === "title" && (
-                      <div className="absolute left-[10%] right-[10%] top-[8%]">
+                      <div className="absolute left-[10%] right-[10%] top-[8%] text-center font-sans">
                         <p className="font-display text-[26px] font-bold text-ink">My Sketchbook</p>
                         <p className="mt-1 text-[13px] font-light text-ink/60">my hand made sketches</p>
                         <p className="mt-8 text-[15px] leading-[1.7] text-ink/80">
