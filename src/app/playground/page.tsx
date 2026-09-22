@@ -112,7 +112,7 @@ export default function PlaygroundPage() {
             <Heading x={892} y={595}>Some AI generated arts</Heading>
             {ai.map((a) => <ArtCard key={a.file} a={a} />)}
 
-            <StickyNote x={1680} y={500} />
+            <StickyNote x={1680} y={380} />
           </div>
         </PanZoomCanvas>
       </div>
