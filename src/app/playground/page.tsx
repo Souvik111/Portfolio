@@ -3,6 +3,7 @@ import Image from "next/image";
 import Nav from "@/components/Nav";
 import PanZoomCanvas from "@/components/PanZoomCanvas";
 import MusicCorner from "@/components/MusicCorner";
+import Sketchbook from "@/components/Sketchbook";
 
 export const metadata: Metadata = {
   title: "Playground — Souvik",
@@ -100,7 +101,7 @@ export default function PlaygroundPage() {
         <Nav variant="home" active="Playground" />
       </div>
       <div className="h-full">
-        <PanZoomCanvas world={{ width: 2060, height: 1100 }}>
+        <PanZoomCanvas world={{ width: 2060, height: 1560 }}>
           {/* Figma frame coordinates, lifted slightly so the first row sits just under the floating nav */}
           <div className="absolute left-0 top-[-60px]">
             <Heading x={48} y={210}>Some of my digital artworks</Heading>
@@ -113,6 +114,8 @@ export default function PlaygroundPage() {
             {ai.map((a) => <ArtCard key={a.file} a={a} />)}
 
             <StickyNote x={1638} y={235} scale={0.494} />
+
+            <Sketchbook x={179} y={1297} />
           </div>
         </PanZoomCanvas>
       </div>
