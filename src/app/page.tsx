@@ -11,7 +11,7 @@ const work = [
     href: "/work/deepr",
     image: `${IMG}/work-deepr.png`,
     title: "Deepr- Making the invisible visible",
-    desc: "Designer on  a music credit discovery concept across ios, Netflix, YouTube TV, and 4 streaming platform integration.",
+    desc: "Reimagining how people discover the people behind their favourite music, so I designed a cross-platform music-credit discovery experience",
     tags: ["ios App", "Multi-Platform", "0-1 Product", "Concept"],
   },
   {
@@ -20,6 +20,13 @@ const work = [
     title: "Solar Energy SaaS",
     desc: "Designed an operations dashboard and energy forecast model for an industrial solar monitoring platform.",
     tags: ["Enterprise SaaS", "Data Visualization", "Responsive", "Design Challenge"],
+  },
+  {
+    href: "#",
+    image: `${IMG}/work-8x.png`,
+    title: "8x — Making outreach worth trusting",
+    desc: "Reimagining how brands invite creators to campaigns, so I redesigned the one flow where a click sends a real message to a real person",
+    tags: ["Desktop Web", "Redesign", "B2B SaaS", "Prototype"],
   },
 ];
 
@@ -87,7 +94,7 @@ export default function Home() {
                   alt=""
                   width={590}
                   height={460}
-                  className="h-auto w-full transition-opacity duration-300 group-hover:opacity-60"
+                  className="aspect-[590/460] w-full object-cover transition-opacity duration-300 group-hover:opacity-60"
                 />
               </Link>
               <h2 className="mt-[20px] font-display text-[22px] font-medium leading-[1.2] text-black md:text-[26px] md:leading-[31.2px]">
@@ -121,7 +128,7 @@ export default function Home() {
                 Stuff I&apos;ve made for the web
               </h2>
               <p className="mt-[8px] text-[16px] font-light leading-[20.8px] text-black/70">
-                Some websites and landing pages I&apos;ve designed along the way.
+                A few websites and landing pages I&apos;ve designed for brands, products, and ideas.
               </p>
             </div>
             <a
