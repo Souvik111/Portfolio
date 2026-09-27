@@ -500,10 +500,16 @@ export default function EightXPage() {
         <footer className="mt-[60px] border-t border-black/20 pt-[26px]">
           <div className="flex flex-wrap items-center justify-between gap-3 text-[16px] font-light leading-[21px] text-black/70">
             <p>© 2026 Souvik Mondal</p>
-            {/* TODO: swap for the exported Figma wordmark once the export limit clears */}
-            <p className="flex items-center gap-[6px]">
+            <p className="flex items-center gap-[7px]">
               website build with love in
-              <span className="font-medium text-ink">Figma</span>
+              <Image
+                src="/claude-logo.png"
+                alt=""
+                width={22}
+                height={22}
+                className="h-[22px] w-[22px] object-contain"
+              />
+              <span className="font-medium text-ink">Claude</span>
             </p>
           </div>
         </footer>
