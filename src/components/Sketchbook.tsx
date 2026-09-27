@@ -29,6 +29,8 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
   const [portrait, setPortrait] = useState(false); // phones: one page at a time
   const bookRef = useRef<HTMLDivElement>(null);
   const flipRef = useRef<PageFlip | null>(null);
+  // the book renders through a portal, so it can only mount on the client
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), []);
 
   // page size follows the viewport (two pages side by side)
@@ -79,7 +81,6 @@ export default function Sketchbook({ x, y }: { x: number; y: number }) {
       pf.destroy();
       flipRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, size.w, size.h, portrait]);
 
   useEffect(() => {

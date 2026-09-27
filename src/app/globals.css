@@ -25,6 +25,8 @@
   --slate-ink: #506c83;
   --slate-tint: rgb(80 108 131 / 0.1);
   --sand: #e7e4da;
+  /* 8x case study */
+  --indigo: #2721cc;
 }
 
 @theme inline {
@@ -51,6 +53,7 @@
   --color-slate-ink: var(--slate-ink);
   --color-slate-tint: var(--slate-tint);
   --color-sand: var(--sand);
+  --color-indigo: var(--indigo);
   --font-sans: var(--font-dm-sans), system-ui, sans-serif;
   --font-display: var(--font-syne), var(--font-dm-sans), sans-serif;
 }

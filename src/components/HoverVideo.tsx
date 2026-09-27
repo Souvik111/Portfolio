@@ -18,6 +18,8 @@ export default function HoverVideo({
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [sources, setSources] = useState<{ src: string; type: string }[]>([]);
+  // client-only: the playable alpha format depends on the browser
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setSources(alphaVideoSources(base)), [base]);
 
   // Never autoplay: rest on the first frame until the pointer is over it.

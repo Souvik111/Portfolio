@@ -22,7 +22,7 @@ const work = [
     tags: ["Enterprise SaaS", "Data Visualization", "Responsive", "Design Challenge"],
   },
   {
-    href: "#",
+    href: "/work/8x",
     image: `${IMG}/work-8x.png`,
     title: "8x — Making outreach worth trusting",
     desc: "Reimagining how brands invite creators to campaigns, so I redesigned the one flow where a click sends a real message to a real person",
