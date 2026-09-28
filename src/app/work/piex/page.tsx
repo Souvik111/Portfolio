@@ -466,8 +466,8 @@ export default function PiexPage() {
           {/* Figma: two 390-wide phones, 110px apart */}
           <div className="mt-[40px] flex flex-wrap items-start justify-center gap-[40px] md:gap-[110px]">
             {[
-              ["mobile-dashboard-phone", "Mobile Dashboard", "Progressive disclosure"],
-              ["mobile-forecast-phone", "Mobile Forecast", "Key metrics + action"],
+              ["mobile-dashboard-clean", "Mobile Dashboard", "Progressive disclosure"],
+              ["mobile-forecast-clean", "Mobile Forecast", "Key metrics + action"],
             ].map(([file, title, sub]) => (
               // cropped to the device itself; the shadow is drawn here instead of baked into the PNG
               <figure key={file} className="w-[300px] md:w-[390px]">
