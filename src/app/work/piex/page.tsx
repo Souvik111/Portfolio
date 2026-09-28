@@ -463,22 +463,22 @@ export default function PiexPage() {
               menu.
             </Body>
           </div>
-          {/* Figma: two 390-wide phones, 110px apart; the exports carry a 50px shadow margin each side */}
-          <div className="mt-[40px] flex flex-wrap items-start justify-center gap-[20px] md:gap-[10px]">
+          {/* Figma: two 390-wide phones, 110px apart */}
+          <div className="mt-[40px] flex flex-wrap items-start justify-center gap-[40px] md:gap-[110px]">
             {[
-              ["mobile-dashboard-trim", "Mobile Dashboard", "Progressive disclosure"],
-              ["mobile-forecast-trim", "Mobile Forecast", "Key metrics + action"],
+              ["mobile-dashboard-phone", "Mobile Dashboard", "Progressive disclosure"],
+              ["mobile-forecast-phone", "Mobile Forecast", "Key metrics + action"],
             ].map(([file, title, sub]) => (
-              // exports carry the drop-shadow margin: 490 wide keeps the phone itself at 390
-              <figure key={file} className="w-[350px] md:w-[490px]">
+              // cropped to the device itself; the shadow is drawn here instead of baked into the PNG
+              <figure key={file} className="w-[300px] md:w-[390px]">
                 <Image
                   src={`${IMG}/${file}.png`}
                   alt={title}
-                  width={490}
-                  height={872}
-                  className="h-auto w-full"
+                  width={390}
+                  height={787}
+                  className="h-auto w-full drop-shadow-[0_24px_34px_rgb(0_0_0/0.18)]"
                 />
-                <figcaption className="mt-[6px] text-center text-[16px] leading-[24px] text-ink-soft">
+                <figcaption className="mt-[31px] text-center text-[16px] leading-[24px] text-ink-soft">
                   {title}
                   <br />
                   {sub}
