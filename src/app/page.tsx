@@ -45,7 +45,7 @@ export default function Home() {
   return (
     <main id="top" className="min-h-screen bg-bg pb-[30px]">
       <CursorTrail />
-      <Nav variant="home" active="Home" />
+      <Nav active="Home" />
 
       <div className="mx-auto w-full max-w-[1200px] px-6 xl:px-0">
         {/* Hero */}

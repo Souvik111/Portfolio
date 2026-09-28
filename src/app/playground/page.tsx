@@ -98,7 +98,7 @@ export default function PlaygroundPage() {
     <main className="relative h-dvh bg-bg">
       {/* nav floats over the canvas so the dot grid runs edge to edge; gaps between items stay draggable */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 [&_a]:pointer-events-auto [&_button]:pointer-events-auto [&_nav]:pointer-events-auto">
-        <Nav variant="home" active="Playground" />
+        <Nav active="Playground" />
       </div>
       <div className="h-full">
         <PanZoomCanvas world={{ width: 2060, height: 1560 }}>
