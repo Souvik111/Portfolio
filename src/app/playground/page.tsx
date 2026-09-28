@@ -67,7 +67,7 @@ export default function PlaygroundPage() {
         <Nav active="Playground" />
       </div>
       <div className="h-full">
-        <PanZoomCanvas world={{ width: 2060, height: 1620 }}>
+        <PanZoomCanvas world={{ width: 2060, height: 1120 }}>
           {/* Figma frame coordinates, lifted slightly so the first row sits just under the floating nav */}
           <div className="absolute left-0 top-[-60px]">
             <Heading x={48} y={210}>Some of my digital artworks</Heading>
@@ -78,7 +78,7 @@ export default function PlaygroundPage() {
 
             <StickyNote x={1638} y={235} scale={0.494} />
 
-            <Sketchbook x={179} y={1297} />
+            <Sketchbook x={892} y={620} />
           </div>
         </PanZoomCanvas>
       </div>
