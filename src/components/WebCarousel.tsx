@@ -57,7 +57,7 @@ export default function WebCarousel({ sites }: { sites: Site[] }) {
             onClick={prev}
             disabled={i === 0}
             aria-label="Previous site"
-            className="flex h-[44px] w-[44px] items-center justify-center rounded-full border border-black/20 transition-transform hover:scale-105 disabled:opacity-35 disabled:hover:scale-100"
+            className="flex h-[44px] w-[44px] items-center justify-center rounded-full border border-black/20 bg-transparent transition-[transform,background-color] duration-200 hover:scale-105 hover:bg-white disabled:opacity-35 disabled:hover:scale-100 disabled:hover:bg-transparent"
           >
             <Image src={`${IMG}/icon-arrow.svg`} alt="" width={11} height={20} className="h-[16px] w-[9px] rotate-180" />
           </button>
@@ -66,7 +66,7 @@ export default function WebCarousel({ sites }: { sites: Site[] }) {
             onClick={next}
             disabled={i === sites.length - 1}
             aria-label="Next site"
-            className="flex h-[44px] w-[44px] items-center justify-center rounded-full border border-black/20 bg-white transition-transform hover:scale-105 disabled:opacity-35 disabled:hover:scale-100"
+            className="flex h-[44px] w-[44px] items-center justify-center rounded-full border border-black/20 bg-transparent transition-[transform,background-color] duration-200 hover:scale-105 hover:bg-white disabled:opacity-35 disabled:hover:scale-100 disabled:hover:bg-transparent"
           >
             <Image src={`${IMG}/icon-arrow.svg`} alt="" width={11} height={20} className="h-[16px] w-[9px]" />
           </button>
@@ -81,7 +81,7 @@ export default function WebCarousel({ sites }: { sites: Site[] }) {
           onClick={prev}
           disabled={i === 0}
           aria-label="Previous site"
-          className="absolute left-[-104px] top-1/2 hidden h-[58px] w-[58px] -translate-y-1/2 items-center justify-center rounded-full border border-black/20 transition-transform hover:scale-105 disabled:opacity-35 disabled:hover:scale-100 min-[1460px]:flex"
+          className="absolute left-[-104px] top-1/2 hidden h-[58px] w-[58px] -translate-y-1/2 items-center justify-center rounded-full border border-black/20 bg-transparent transition-[transform,background-color] duration-200 hover:scale-105 hover:bg-white disabled:opacity-35 disabled:hover:scale-100 disabled:hover:bg-transparent min-[1460px]:flex"
         >
           <Image src={`${IMG}/icon-arrow.svg`} alt="" width={11} height={20} className="h-[20px] w-[11px] rotate-180" />
         </button>
@@ -90,7 +90,7 @@ export default function WebCarousel({ sites }: { sites: Site[] }) {
           onClick={next}
           disabled={i === sites.length - 1}
           aria-label="Next site"
-          className="absolute right-[-104px] top-1/2 hidden h-[58px] w-[58px] -translate-y-1/2 items-center justify-center rounded-full border border-black/20 bg-white transition-transform hover:scale-105 disabled:opacity-35 disabled:hover:scale-100 min-[1460px]:flex"
+          className="absolute right-[-104px] top-1/2 hidden h-[58px] w-[58px] -translate-y-1/2 items-center justify-center rounded-full border border-black/20 bg-transparent transition-[transform,background-color] duration-200 hover:scale-105 hover:bg-white disabled:opacity-35 disabled:hover:scale-100 disabled:hover:bg-transparent min-[1460px]:flex"
         >
           <Image src={`${IMG}/icon-arrow.svg`} alt="" width={11} height={20} className="h-[20px] w-[11px]" />
         </button>
