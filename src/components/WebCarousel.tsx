@@ -43,16 +43,36 @@ export default function WebCarousel({ sites }: { sites: Site[] }) {
   return (
     <>
       {/* title row */}
-      <div className="mt-[52px] flex items-baseline justify-between gap-4">
+      <div className="mt-[52px] flex flex-wrap items-center justify-between gap-4">
         <h1 className="font-display text-[24px] font-medium leading-[34px] text-black md:text-[28px]">
           Web Design &amp; Development
         </h1>
-        <p className="text-[18px] leading-[27px] text-black/70">
-          {pad(i + 1)}/{pad(sites.length)}
-        </p>
+        <div className="flex items-center gap-[14px]">
+          <p className="text-[18px] leading-[27px] text-black/70">
+            {pad(i + 1)}/{pad(sites.length)}
+          </p>
+          <button
+            type="button"
+            onClick={prev}
+            disabled={i === 0}
+            aria-label="Previous site"
+            className="flex h-[44px] w-[44px] items-center justify-center rounded-full border border-black/20 transition-transform hover:scale-105 disabled:opacity-35 disabled:hover:scale-100"
+          >
+            <Image src={`${IMG}/icon-arrow.svg`} alt="" width={11} height={20} className="h-[16px] w-[9px] rotate-180" />
+          </button>
+          <button
+            type="button"
+            onClick={next}
+            disabled={i === sites.length - 1}
+            aria-label="Next site"
+            className="flex h-[44px] w-[44px] items-center justify-center rounded-full border border-black/20 bg-white transition-transform hover:scale-105 disabled:opacity-35 disabled:hover:scale-100"
+          >
+            <Image src={`${IMG}/icon-arrow.svg`} alt="" width={11} height={20} className="h-[16px] w-[9px]" />
+          </button>
+        </div>
       </div>
 
-      {/* browser frame + side arrows */}
+      {/* browser frame */}
       <div className="relative mt-[25px]">
         <div className="w-full overflow-hidden rounded-[9px] border border-[#e5e5e5] bg-[#d9d9d9]">
           <div className="relative flex h-[50px] items-center border-b border-[#e7e7e7] bg-[#f5f5f5] px-[73px]">
@@ -83,24 +103,6 @@ export default function WebCarousel({ sites }: { sites: Site[] }) {
           </div>
         </div>
 
-        <button
-          type="button"
-          onClick={prev}
-          disabled={i === 0}
-          aria-label="Previous site"
-          className="absolute left-[24px] top-1/2 hidden h-[58px] w-[58px] -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/85 shadow-[0_6px_18px_rgb(0_0_0/0.18)] backdrop-blur-sm transition-transform hover:scale-105 disabled:opacity-35 disabled:hover:scale-100 lg:flex"
-        >
-          <Image src={`${IMG}/icon-arrow.svg`} alt="" width={11} height={20} className="h-[20px] w-[11px] rotate-180" />
-        </button>
-        <button
-          type="button"
-          onClick={next}
-          disabled={i === sites.length - 1}
-          aria-label="Next site"
-          className="absolute right-[24px] top-1/2 hidden h-[58px] w-[58px] -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/85 shadow-[0_6px_18px_rgb(0_0_0/0.18)] backdrop-blur-sm transition-transform hover:scale-105 disabled:opacity-35 disabled:hover:scale-100 lg:flex"
-        >
-          <Image src={`${IMG}/icon-arrow.svg`} alt="" width={11} height={20} className="h-[20px] w-[11px]" />
-        </button>
       </div>
 
       {/* caption row */}
@@ -126,28 +128,6 @@ export default function WebCarousel({ sites }: { sites: Site[] }) {
             <span>Visit Website</span>
           </a>
         ) : null}
-      </div>
-
-      {/* mobile arrows */}
-      <div className="mt-[24px] flex w-full items-center justify-center gap-4 lg:hidden">
-        <button
-          type="button"
-          onClick={prev}
-          disabled={i === 0}
-          aria-label="Previous site"
-          className="flex h-[48px] w-[48px] items-center justify-center rounded-full border border-black/20 disabled:opacity-35"
-        >
-          <Image src={`${IMG}/icon-arrow.svg`} alt="" width={11} height={20} className="h-[18px] w-[10px] rotate-180" />
-        </button>
-        <button
-          type="button"
-          onClick={next}
-          disabled={i === sites.length - 1}
-          aria-label="Next site"
-          className="flex h-[48px] w-[48px] items-center justify-center rounded-full border border-black/20 bg-white disabled:opacity-35"
-        >
-          <Image src={`${IMG}/icon-arrow.svg`} alt="" width={11} height={20} className="h-[18px] w-[10px]" />
-        </button>
       </div>
 
       <p className="mt-[16px] text-center text-[13px] text-black/40 lg:hidden">
