@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import Nav from "@/components/Nav";
 
 export const metadata: Metadata = {
@@ -112,16 +111,19 @@ function Shot({
 
 const personas = [
   {
+    icon: "persona-1",
     title: "Plant Operator",
     body: "On-site, checking the dashboard constantly. Needs to catch issues fast — an inverter underperforming, a zone dropping below threshold, an anomaly on the production curve. The Alerts panel (2 Critical, 3 Warnings today) is their first stop.",
     q: "“Is anything broken right now, and what do I do about it?”",
   },
   {
+    icon: "persona-2",
     title: "Operations Manager",
     body: "Tracks daily trends and compares actual vs expected production. Uses the Production Analysis chart hourly — looking at where the actual line diverges from the expected dashed line, and why. Needs to plan maintenance before issues escalate.",
     q: "“Are we on target today, and where are the performance gaps?”",
   },
   {
+    icon: "persona-3",
     title: "Executive / Decision Maker",
     body: "Needs the headline numbers fast: 61.60 MWh produced, ₺75,802 revenue, 10,986 kg CO₂ saved — all vs yesterday. Doesn't drill into zone-level data. The KPI strip at the top is the entire interface for this user.",
     q: "“How did we perform today, and are we trending up?”",
@@ -261,13 +263,20 @@ export default function PiexPage() {
           <div className="mt-[38px] grid gap-[20px] md:grid-cols-3">
             {personas.map((p) => (
               <div key={p.title} className="card-hover flex flex-col rounded-[20px] bg-sand p-[30px]">
-                <h3 className="font-display text-[24px] font-bold leading-[1.3] text-ink md:text-[28px]">
+                <Image
+                  src={`${IMG}/${p.icon}.png`}
+                  alt=""
+                  width={70}
+                  height={70}
+                  className="h-[70px] w-[70px]"
+                />
+                <h3 className="mt-[15px] font-display text-[24px] font-bold leading-[1.3] text-ink md:text-[28px]">
                   {p.title}
                 </h3>
                 <p className="mt-[20px] text-[18px] leading-[27px] text-ink-soft">{p.body}</p>
-                <div className="mt-auto pt-[28px]">
+                <div className="mt-auto border-t border-black/10 pt-[20px]">
                   <p className="text-[16px] leading-[24px] text-ink-soft">Core question</p>
-                  <p className="mt-[8px] text-[18px] font-medium leading-[27px] text-slate-ink">
+                  <p className="mt-[8px] text-[18px] font-medium leading-[27px] text-black/80">
                     {p.q}
                   </p>
                 </div>
@@ -282,8 +291,11 @@ export default function PiexPage() {
           <Heading>Everything that matters. Nothing that doesn&apos;t.</Heading>
           <div className="mt-[15px] flex flex-col gap-[15px]">
             <Body>
-              The operations dashboard needed to answer three questions simultaneously: What are we
-              producing right now? Where are the problems? What does the system alerts panel say?
+              The operations dashboard needed to answer three questions simultaneously:{" "}
+              <strong className="font-semibold text-ink">
+                What are we producing right now? Where are the problems? What does the system alerts
+                panel say?
+              </strong>{" "}
               These aren&apos;t three separate panels — they&apos;re three layers of the same answer,
               designed to be read in one scan.
             </Body>
@@ -542,8 +554,9 @@ export default function PiexPage() {
           </div>
           <div className="mt-[38px]">
             <Body>
-              I didn&apos;t stop at static Figma screens. I built a working interactive prototype of
-              the operations dashboard using Claude Code and Figma MCP — pushed live to GitHub Pages.
+              I didn&apos;t stop at static Figma screens. I built a{" "}
+              <strong className="font-bold text-ink">working interactive prototype</strong> of the
+              operations dashboard using Claude Code and Figma MCP — pushed live to GitHub Pages.
               It&apos;s a functional web application: the full KPI strip, the production analysis
               chart with red anomaly markers, the 12-zone monitoring grid with Section B2 highlighted
               amber, the system alerts panel with its 2 Critical / 3 Warnings / 12 Normal triage
@@ -555,6 +568,22 @@ export default function PiexPage() {
 
         {/* Closing quote */}
         <section className="relative mx-auto mt-[80px] overflow-hidden rounded-[20px] bg-slate-deep px-[24px] pt-[48px] pb-[48px] text-center md:px-[63px] md:pt-[65px] md:pb-[65px]">
+          <Image
+            aria-hidden
+            src={`${IMG}/turbine-left.png`}
+            alt=""
+            width={218}
+            height={375}
+            className="pointer-events-none absolute left-[33px] top-[113px] hidden h-[375px] w-[218px] opacity-30 lg:block"
+          />
+          <Image
+            aria-hidden
+            src={`${IMG}/turbine-right.png`}
+            alt=""
+            width={218}
+            height={375}
+            className="pointer-events-none absolute left-[947px] top-[73px] hidden h-[375px] w-[218px] opacity-30 lg:block"
+          />
           <p className="relative mx-auto max-w-[1072px] font-display text-[24px] font-bold leading-[1.5] text-white md:text-[32px] md:leading-[48px]">
             &quot;Section B2 is underperforming at 74%. Inverter 4 dropped below threshold 3 minutes
             ago. The operator already knows, because the interface told them before they had to look.
@@ -585,11 +614,21 @@ export default function PiexPage() {
           </div>
         </section>
 
-        <div className="mt-[40px] text-center">
-          <Link href="/work/deepr" className="text-[16px] font-medium text-blue-text underline">
-            Next case study: Deepr
-          </Link>
-        </div>
+        <footer className="mt-[60px] border-t border-black/20 pt-[26px]">
+          <div className="flex flex-wrap items-center justify-between gap-3 text-[16px] font-light leading-[21px] text-black/70">
+            <p>© 2026 Souvik Mondal</p>
+            <p className="flex items-center gap-[8px]">
+              website build with love in
+              <Image
+                src="/claude-pixel.png"
+                alt="Claude"
+                width={34}
+                height={21}
+                className="h-[21px] w-[34px] object-contain [image-rendering:pixelated]"
+              />
+            </p>
+          </div>
+        </footer>
       </div>
     </main>
   );
