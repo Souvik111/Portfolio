@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from "react";
 export type Site = {
   shot: string;
   name: string;
+  /** omitted while the site is still being built */
   url?: string;
   tags: string[];
 };
@@ -16,10 +17,17 @@ const IMG = "/web";
 // One site at a time in a browser-chrome frame; arrows (or ← →) move through the set.
 export default function WebCarousel({ sites }: { sites: Site[] }) {
   const [i, setI] = useState(0);
+  const [dir, setDir] = useState(1); // which way the new slide comes in
   const site = sites[i];
 
-  const prev = useCallback(() => setI((n) => Math.max(0, n - 1)), []);
-  const next = useCallback(() => setI((n) => Math.min(sites.length - 1, n + 1)), [sites.length]);
+  const prev = useCallback(() => {
+    setDir(-1);
+    setI((n) => Math.max(0, n - 1));
+  }, []);
+  const next = useCallback(() => {
+    setDir(1);
+    setI((n) => Math.min(sites.length - 1, n + 1));
+  }, [sites.length]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -49,20 +57,22 @@ export default function WebCarousel({ sites }: { sites: Site[] }) {
         <div className="mx-auto w-full max-w-[831px] overflow-hidden rounded-[9px] border border-[#e5e5e5] bg-[#d9d9d9]">
           <div className="flex h-[50px] items-center border-b border-[#e7e7e7] bg-[#f5f5f5] px-[73px]">
             <div className="flex h-[29px] w-full items-center justify-center rounded-[6px] border border-[#f0f0f0] bg-white px-3">
-              <span className="truncate text-[10px] font-light leading-[13px] text-black">
-                {site.url ?? ""}
+              <span key={i} className="slide-fade truncate text-[10px] font-light leading-[13px] text-black">
+                {site.url ?? "in progress"}
               </span>
             </div>
           </div>
-          <Image
-            key={site.shot}
-            src={`${IMG}/${site.shot}.png`}
-            alt={site.name}
-            width={831}
-            height={457}
-            priority
-            className="aspect-[831/457] w-full object-cover object-top"
-          />
+          <div className="aspect-[831/457] w-full overflow-hidden">
+            <Image
+              key={site.shot}
+              src={`${IMG}/${site.shot}.png`}
+              alt={site.name}
+              width={831}
+              height={457}
+              priority
+              className={`h-full w-full object-cover object-top ${dir > 0 ? "slide-next" : "slide-prev"}`}
+            />
+          </div>
         </div>
 
         <button
@@ -87,8 +97,8 @@ export default function WebCarousel({ sites }: { sites: Site[] }) {
 
       {/* caption row */}
       <div className="mx-auto mt-[30px] flex w-full max-w-[831px] flex-wrap items-center gap-x-[22px] gap-y-3">
-        <p className="text-[22px] leading-[33px] text-black">{site.name}</p>
-        <ul className="flex flex-wrap items-center gap-[8px]">
+        <p key={`n${i}`} className="slide-fade text-[22px] leading-[33px] text-black">{site.name}</p>
+        <ul key={`t${i}`} className="slide-fade flex flex-wrap items-center gap-[8px]">
           {site.tags.map((t) => (
             <li
               key={t}
@@ -98,7 +108,7 @@ export default function WebCarousel({ sites }: { sites: Site[] }) {
             </li>
           ))}
         </ul>
-        {site.url && (
+        {site.url ? (
           <a
             href={site.url}
             target="_blank"
@@ -107,6 +117,11 @@ export default function WebCarousel({ sites }: { sites: Site[] }) {
           >
             <span>Visit Website</span>
           </a>
+        ) : (
+          <span className="ml-auto flex h-[37px] items-center gap-[8px] rounded-full border border-orange/40 bg-orange/10 px-[20px] text-[16px] font-medium text-orange">
+            <i className="h-[7px] w-[7px] rounded-full bg-orange wip-dot" />
+            Work in progress
+          </span>
         )}
       </div>
 
