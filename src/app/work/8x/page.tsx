@@ -498,15 +498,51 @@ export default function EightXPage() {
           </div>
         </section>
 
-        {/* Next case study */}
-        <div className="mt-[50px] flex justify-center">
-          <Link
-            href="/work/deepr"
-            className="btn-pop flex h-[49px] items-center rounded-full bg-orange px-[25px] text-[16px] font-semibold text-white"
-          >
-            <span>Next Case Study: Deepr</span>
-          </Link>
-        </div>
+        {/* Closing */}
+        <section className="relative mt-[60px] overflow-hidden rounded-[30px] bg-[#7c77ff] px-[24px] pt-[48px] pb-[48px] text-center md:px-[85px] md:pt-[60px] md:pb-[56px]">
+          <Image
+            aria-hidden
+            src={`${IMG}/closing-art.png`}
+            alt=""
+            width={654}
+            height={367}
+            className="pointer-events-none absolute left-0 top-0 hidden h-full w-[654px] object-cover lg:block"
+          />
+          <Image
+            aria-hidden
+            src={`${IMG}/closing-art.png`}
+            alt=""
+            width={654}
+            height={367}
+            className="pointer-events-none absolute left-[654px] top-0 hidden h-full w-[654px] object-cover lg:block"
+          />
+          <p className="relative mx-auto max-w-[1031px] font-display text-[22px] font-bold leading-[1.5] text-white md:text-[28px] md:leading-[42px]">
+            Two creators selected. The message is already drafted, sitting right there, before it
+            goes to a single real person. Edit a line, hit send, and the toast confirms it — no
+            redirect, no wondering what just went out. That&apos;s the whole brief, solved.
+          </p>
+          <div className="relative mt-[36px] flex flex-wrap justify-center gap-[24px]">
+            <Link
+              href="/"
+              className="btn-pop flex h-[49px] items-center rounded-full bg-white px-[25px] text-[16px] font-semibold text-slate-ink"
+            >
+              <span>Back to Home</span>
+            </Link>
+            <a
+              href="#top"
+              className="btn-pop flex h-[49px] items-center gap-[10px] rounded-full border border-white px-[25px] text-[16px] font-semibold text-white"
+            >
+              <Image
+                src="/deepr/back-to-top.svg"
+                alt=""
+                width={18}
+                height={17}
+                className="h-[17px] w-[18px] brightness-0 invert"
+              />
+              <span>Back to Top</span>
+            </a>
+          </div>
+        </section>
 
         {/* Footer */}
         <SiteFooter />

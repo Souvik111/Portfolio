@@ -559,7 +559,15 @@ export default function PiexPage() {
           <div className="mt-[38px]">
             <Body>
               I didn&apos;t stop at static Figma screens. I built a{" "}
-              <strong className="font-bold text-ink">working interactive prototype</strong> of the
+              <a
+                href="https://souvik111.github.io/PIEX-dashboard-for-solar-plant-operators/#dashboard"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-slate-ink underline underline-offset-4 hover:text-orange"
+              >
+                working interactive prototype
+              </a>{" "}
+              of the
               operations dashboard using Claude Code and Figma MCP — pushed live to GitHub Pages.
               It&apos;s a functional web application: the full KPI strip, the production analysis
               chart with red anomaly markers, the 12-zone monitoring grid with Section B2 highlighted

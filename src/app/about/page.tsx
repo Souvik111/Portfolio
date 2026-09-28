@@ -21,6 +21,19 @@ const outside = [
   "Sharing work and thoughts on Twitter and Substack",
 ];
 
+// 80x80 tiles, in the order they sit in the design
+const tools = [
+  ["tool-1", "Figma"],
+  ["tool-2", "Notion"],
+  ["tool-3", "Framer"],
+  ["tool-4", "Claude"],
+  ["tool-5", "GitHub"],
+  ["tool-6", "Supabase"],
+  ["tool-7", "ChatGPT"],
+  ["tool-8", "Canva"],
+  ["tool-9", "Illustrator"],
+];
+
 const experience = [
   ["Product Designer", "Independent", "2025 - Present"],
   ["UI/UX Designer", "Draftss", "2023 - 2025"],
@@ -119,6 +132,32 @@ export default function AboutPage() {
                 </p>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Tools */}
+        <section className="mt-[55px]">
+          <h2 className="font-display text-[26px] font-medium leading-[34px] text-black md:text-[28px]">
+            Tools I work with
+          </h2>
+          <div className="mt-[24px] rounded-[8px] border border-black/20 bg-white px-[30px] py-[40px] md:px-[40px]">
+            <ul className="flex flex-wrap items-center justify-between gap-[20px]">
+              {tools.map(([file, name]) => (
+                <li
+                  key={file}
+                  title={name}
+                  className="flex h-[80px] w-[80px] items-center justify-center rounded-[8px] bg-bg transition-transform duration-200 hover:-translate-y-1"
+                >
+                  <Image
+                    src={`/about/${file}.png`}
+                    alt={name}
+                    width={50}
+                    height={50}
+                    className="h-[50px] w-auto object-contain"
+                  />
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
