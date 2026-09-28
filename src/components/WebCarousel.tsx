@@ -55,7 +55,13 @@ export default function WebCarousel({ sites }: { sites: Site[] }) {
       {/* browser frame + side arrows */}
       <div className="relative mt-[25px]">
         <div className="mx-auto w-full max-w-[831px] overflow-hidden rounded-[9px] border border-[#e5e5e5] bg-[#d9d9d9]">
-          <div className="flex h-[50px] items-center border-b border-[#e7e7e7] bg-[#f5f5f5] px-[73px]">
+          <div className="relative flex h-[50px] items-center border-b border-[#e7e7e7] bg-[#f5f5f5] px-[73px]">
+            {/* traffic lights, Figma colours */}
+            <span className="absolute left-[17px] flex items-center gap-[6px]" aria-hidden>
+              <i className="block h-[10px] w-[10px] rounded-full bg-[#ff5f57]" />
+              <i className="block h-[10px] w-[10px] rounded-full bg-[#febc2e]" />
+              <i className="block h-[10px] w-[10px] rounded-full bg-[#28c840]" />
+            </span>
             <div className="flex h-[29px] w-full items-center justify-center rounded-[6px] border border-[#f0f0f0] bg-white px-3">
               <span key={i} className="slide-fade truncate text-[10px] font-light leading-[13px] text-black">
                 {site.url ?? "in progress"}
@@ -67,8 +73,10 @@ export default function WebCarousel({ sites }: { sites: Site[] }) {
               key={site.shot}
               src={`${IMG}/${site.shot}.png`}
               alt={site.name}
-              width={831}
-              height={457}
+              width={1662}
+              height={914}
+              quality={90}
+              sizes="(max-width: 900px) 100vw, 831px"
               priority
               className={`h-full w-full object-cover object-top ${dir > 0 ? "slide-next" : "slide-prev"}`}
             />
