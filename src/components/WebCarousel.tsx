@@ -75,7 +75,7 @@ export default function WebCarousel({ sites }: { sites: Site[] }) {
               alt={site.name}
               width={1662}
               height={914}
-              quality={90}
+              quality={92}
               sizes="(max-width: 900px) 100vw, 831px"
               priority
               className={`h-full w-full object-cover object-top ${dir > 0 ? "slide-next" : "slide-prev"}`}
