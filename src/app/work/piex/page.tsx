@@ -463,20 +463,21 @@ export default function PiexPage() {
               menu.
             </Body>
           </div>
-          <div className="mt-[40px] flex flex-wrap items-start justify-center gap-[60px] md:gap-[110px]">
+          <div className="mt-[40px] flex flex-wrap items-start justify-center gap-[20px] md:gap-[30px]">
             {[
-              ["mobile-dashboard", "Mobile Dashboard", "Progressive disclosure"],
-              ["mobile-forecast", "Mobile Forecast", "Key metrics + action"],
+              ["mobile-dashboard-trim", "Mobile Dashboard", "Progressive disclosure"],
+              ["mobile-forecast-trim", "Mobile Forecast", "Key metrics + action"],
             ].map(([file, title, sub]) => (
-              <figure key={file} className="w-[280px] md:w-[390px]">
+              // exports carry the drop-shadow margin: 490 wide keeps the phone itself at 390
+              <figure key={file} className="w-[350px] md:w-[490px]">
                 <Image
                   src={`${IMG}/${file}.png`}
                   alt={title}
-                  width={390}
-                  height={787}
+                  width={490}
+                  height={872}
                   className="h-auto w-full"
                 />
-                <figcaption className="mt-[20px] text-center text-[16px] leading-[24px] text-ink-soft">
+                <figcaption className="mt-[6px] text-center text-[16px] leading-[24px] text-ink-soft">
                   {title}
                   <br />
                   {sub}
