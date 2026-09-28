@@ -101,10 +101,10 @@ export default function AboutPage() {
                 <p className="px-[28px] py-[14px] text-[18px] font-light leading-[23px] text-black/70 sm:py-[24px]">
                   {role}
                 </p>
-                <p className="px-[28px] pb-[14px] text-[18px] font-light leading-[23px] text-black/70 sm:border-l sm:border-black/20 sm:py-[24px] sm:text-center">
+                <p className="px-[28px] pb-[14px] text-[18px] font-light leading-[23px] text-black/70 sm:border-l sm:border-black/20 sm:py-[24px]">
                   {place}
                 </p>
-                <p className="px-[28px] pb-[14px] text-[18px] font-light leading-[23px] text-black/70 sm:border-l sm:border-black/20 sm:py-[24px] sm:text-center">
+                <p className="px-[28px] pb-[14px] text-[18px] font-light leading-[23px] text-black/70 sm:border-l sm:border-black/20 sm:py-[24px]">
                   {years}
                 </p>
               </div>

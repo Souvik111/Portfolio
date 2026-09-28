@@ -781,10 +781,10 @@ export default function DeeprPage() {
           </p>
           <div className="relative mt-[30px] flex flex-wrap justify-center gap-[24px]">
             <Link
-              href="/work/footprints"
+              href="/work/piex"
               className="btn-pop flex h-[49px] items-center rounded-full bg-orange px-[25px] text-[16px] font-semibold text-white"
             >
-              <span>Next Case Study Footprints</span>
+              <span>Next Case Study: PIEX</span>
             </Link>
             <a
               href="#top"

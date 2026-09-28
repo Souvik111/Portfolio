@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import Nav from "@/components/Nav";
 import SiteFooter from "@/components/SiteFooter";
 
@@ -496,6 +497,16 @@ export default function EightXPage() {
             </P>
           </div>
         </section>
+
+        {/* Next case study */}
+        <div className="mt-[50px] flex justify-center">
+          <Link
+            href="/work/deepr"
+            className="btn-pop flex h-[49px] items-center rounded-full bg-orange px-[25px] text-[16px] font-semibold text-white"
+          >
+            <span>Next Case Study: Deepr</span>
+          </Link>
+        </div>
 
         {/* Footer */}
         <SiteFooter />

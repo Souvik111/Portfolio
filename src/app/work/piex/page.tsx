@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import Nav from "@/components/Nav";
 import SiteFooter from "@/components/SiteFooter";
 
@@ -593,14 +594,12 @@ export default function PiexPage() {
             That&apos;s the whole brief, solved.&quot;
           </p>
           <div className="relative mt-[40px] flex flex-wrap justify-center gap-[24px]">
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/work/8x"
               className="btn-pop flex h-[49px] items-center rounded-full bg-white px-[25px] text-[16px] font-semibold text-slate-ink"
             >
-              <span>Open Live Prototype</span>
-            </a>
+              <span>Next Case Study: 8x</span>
+            </Link>
             <a
               href="#top"
               className="btn-pop flex h-[49px] items-center gap-[10px] rounded-full border border-white bg-orange px-[25px] text-[16px] font-semibold text-white"
