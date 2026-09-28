@@ -7,7 +7,7 @@ const links = [
   { label: "Home", href: "/" },
   { label: "Work", href: "/#work" },
   { label: "Playground", href: "/playground" },
-  { label: "About", href: "/#about" },
+  { label: "About", href: "/about" },
 ];
 
 const CV = { label: "Read CV", href: "/cv.pdf" };
