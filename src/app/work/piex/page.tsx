@@ -463,7 +463,8 @@ export default function PiexPage() {
               menu.
             </Body>
           </div>
-          <div className="mt-[40px] flex flex-wrap items-start justify-center gap-[20px] md:gap-[30px]">
+          {/* Figma: two 390-wide phones, 110px apart; the exports carry a 50px shadow margin each side */}
+          <div className="mt-[40px] flex flex-wrap items-start justify-center gap-[20px] md:gap-[10px]">
             {[
               ["mobile-dashboard-trim", "Mobile Dashboard", "Progressive disclosure"],
               ["mobile-forecast-trim", "Mobile Forecast", "Key metrics + action"],
