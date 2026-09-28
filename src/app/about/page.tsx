@@ -10,6 +10,9 @@ export const metadata: Metadata = {
 };
 
 const EMAIL = "souvikm725@gmail.com";
+// same profiles the homepage footer links to
+const TWITTER = "https://x.com/Sou__Vik";
+const LINKEDIN = "https://www.linkedin.com/in/souvik-mondal-3a7a7415b/";
 
 const outside = [
   "Making sketches (the old-fashioned kind, pencil on paper)",
@@ -62,13 +65,20 @@ export default function AboutPage() {
               ))}
             </ul>
 
-            <p className="mt-[24px] text-[18px] font-light leading-[23px] text-black/70">
-              You can find me on Twitter and LinkedIn or reach me directly at{" "}
+            <p className="mt-[24px] text-[18px] font-light leading-[23px] text-black/70 [&_a]:underline [&_a]:underline-offset-4 [&_a:hover]:text-orange">
+              You can find me on{" "}
+              <a href={TWITTER} target="_blank" rel="noopener noreferrer">
+                Twitter
+              </a>{" "}
+              and{" "}
+              <a href={LINKEDIN} target="_blank" rel="noopener noreferrer">
+                LinkedIn
+              </a>{" "}
+              or reach me directly at{" "}
               <a
                 href={`https://mail.google.com/mail/?view=cm&to=${EMAIL}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline underline-offset-4 hover:text-orange"
               >
                 {EMAIL}
               </a>
