@@ -51,6 +51,7 @@ export default function WebCarousel({ sites }: { sites: Site[] }) {
           <p className="text-[18px] leading-[27px] text-black/70">
             {pad(i + 1)}/{pad(sites.length)}
           </p>
+          <span className="contents min-[1460px]:hidden">
           <button
             type="button"
             onClick={prev}
@@ -69,11 +70,30 @@ export default function WebCarousel({ sites }: { sites: Site[] }) {
           >
             <Image src={`${IMG}/icon-arrow.svg`} alt="" width={11} height={20} className="h-[16px] w-[9px]" />
           </button>
+          </span>
         </div>
       </div>
 
       {/* browser frame */}
       <div className="relative mt-[25px]">
+        <button
+          type="button"
+          onClick={prev}
+          disabled={i === 0}
+          aria-label="Previous site"
+          className="absolute left-[-104px] top-1/2 hidden h-[58px] w-[58px] -translate-y-1/2 items-center justify-center rounded-full border border-black/20 transition-transform hover:scale-105 disabled:opacity-35 disabled:hover:scale-100 min-[1460px]:flex"
+        >
+          <Image src={`${IMG}/icon-arrow.svg`} alt="" width={11} height={20} className="h-[20px] w-[11px] rotate-180" />
+        </button>
+        <button
+          type="button"
+          onClick={next}
+          disabled={i === sites.length - 1}
+          aria-label="Next site"
+          className="absolute right-[-104px] top-1/2 hidden h-[58px] w-[58px] -translate-y-1/2 items-center justify-center rounded-full border border-black/20 bg-white transition-transform hover:scale-105 disabled:opacity-35 disabled:hover:scale-100 min-[1460px]:flex"
+        >
+          <Image src={`${IMG}/icon-arrow.svg`} alt="" width={11} height={20} className="h-[20px] w-[11px]" />
+        </button>
         <div className="w-full overflow-hidden rounded-[9px] border border-[#e5e5e5] bg-[#d9d9d9]">
           <div className="relative flex h-[50px] items-center border-b border-[#e7e7e7] bg-[#f5f5f5] px-[73px]">
             {/* traffic lights, Figma colours */}
