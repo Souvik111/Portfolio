@@ -17,7 +17,7 @@ const sites: Site[] = [
   { shot: "shot-05", name: "Fidus Insurance Brokers", url: "https://www.fidusinsurancebrokers.co.uk/", tags: ["Web design", "Development"] },
   { shot: "shot-06", name: "Better Than Reality", url: "https://betterthanreality.com.au/", tags: ["Web design", "Development"] },
   { shot: "shot-07", name: "zkLink", url: "https://zk.link/", tags: ["Web design", "Development"] },
-  { shot: "shot-08", name: "Grind Beans", url: "https://grindbeans.com.au/", tags: ["Web design", "Development"] },
+  { shot: "shot-08", name: "Four Beans & Co. Cafe", url: "https://grindbeans.com.au/", tags: ["Web design", "Development"] },
   { shot: "shot-09", name: "Activ Therapy", url: "https://activtherapy.com.au/", tags: ["Web design", "Development"] },
   { shot: "shot-10", name: "Brolo", tags: ["Web design"] },
   { shot: "shot-11", name: "Landing page", tags: ["Web design"] },
