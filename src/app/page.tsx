@@ -131,12 +131,12 @@ export default function Home() {
                 A few websites and landing pages I&apos;ve designed for brands, products, and ideas.
               </p>
             </div>
-            <a
-              href="#"
+            <Link
+              href="/web"
               className="btn-pop mt-[9px] flex h-[52px] items-center rounded-full bg-orange px-[25px] text-[16px] font-medium text-white"
             >
               <span>Explore More</span>
-            </a>
+            </Link>
           </div>
           <div className="mt-[28px] grid gap-[20px] sm:grid-cols-2 md:mt-[34px] md:grid-cols-3">
             {[1, 2, 3].map((n) => (
