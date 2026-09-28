@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Nav from "@/components/Nav";
+import SiteFooter from "@/components/SiteFooter";
 
 export const metadata: Metadata = {
   title: "Deepr — Case Study",
@@ -800,6 +801,8 @@ export default function DeeprPage() {
             </a>
           </div>
         </section>
+
+        <SiteFooter />
       </div>
     </main>
   );
