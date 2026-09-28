@@ -4,6 +4,7 @@ import Nav from "@/components/Nav";
 import PanZoomCanvas from "@/components/PanZoomCanvas";
 import MusicCorner from "@/components/MusicCorner";
 import Sketchbook from "@/components/Sketchbook";
+import ArtGallery, { type Art } from "@/components/ArtGallery";
 
 export const metadata: Metadata = {
   title: "Playground — Souvik",
@@ -13,50 +14,15 @@ export const metadata: Metadata = {
 const IMG = "/playground";
 
 // Positions are Figma world coordinates (1440-wide frame).
-type Art = { file: string; title: string; sub: string; x: number; y: number; big?: boolean };
-
 const digital: Art[] = [
-  { file: "isometric-art", title: "Isometric art", sub: "Made in blender", x: 48, y: 273 },
-  { file: "space-art", title: "Space art", sub: "Made in blender", x: 269, y: 273, big: true },
-  { file: "isometric-club", title: "Isometric club", sub: "Made in blender", x: 503, y: 273, big: true },
-  { file: "couple-illustration", title: "Couple illustration", sub: "Made in illustrator", x: 48, y: 551 },
-  { file: "13-reason-why", title: "13 reason why", sub: "Made in illustrator", x: 269, y: 551 },
-  { file: "little-things", title: "Little things", sub: "Made in illustrator", x: 491, y: 551 },
-  { file: "shawn-mendes", title: "Shawn Mendes", sub: "Made in illustrator", x: 48, y: 816, big: true },
+  { file: "isometric-art", title: "Isometric art", sub: "Made in blender", x: 48, y: 273, full: { w: 630, h: 470 } },
+  { file: "space-art", title: "Space art", sub: "Made in blender", x: 269, y: 273, big: true, full: { w: 627, h: 625 } },
+  { file: "isometric-club", title: "Isometric club", sub: "Made in blender", x: 503, y: 273, big: true, full: { w: 627, h: 470 } },
+  { file: "couple-illustration", title: "Couple illustration", sub: "Made in illustrator", x: 48, y: 551, full: { w: 632, h: 630 } },
+  { file: "13-reason-why", title: "13 reason why", sub: "Made in illustrator", x: 269, y: 551, full: { w: 627, h: 627 } },
+  { file: "little-things", title: "Little things", sub: "Made in illustrator", x: 491, y: 551, full: { w: 631, h: 492 } },
+  { file: "shawn-mendes", title: "Shawn Mendes", sub: "Made in illustrator", x: 48, y: 816, big: true, full: { w: 503, h: 631 } },
 ];
-
-const ai: Art[] = [
-  { file: "pixel-art", title: "Pixel art", sub: "Made in midjourney", x: 892, y: 658 },
-  { file: "supra", title: "Supra", sub: "Made in midjourney", x: 1113, y: 658, big: true },
-  { file: "nature-club", title: "Nature club", sub: "Made in midjourney", x: 1347, y: 658, big: true },
-  { file: "cat", title: "Cat", sub: "Made in midjourney", x: 892, y: 940 },
-  { file: "sunset", title: "Sunset", sub: "Made in midjourney", x: 1113, y: 940, big: true },
-  { file: "fantasy-art", title: "Fantasy art", sub: "Made in midjourney", x: 1347, y: 940, big: true },
-];
-
-function ArtCard({ a }: { a: Art }) {
-  const img = a.big ? 192 : 176;
-  return (
-    <figure
-      className="card-hover absolute rounded-[10px] bg-white p-[8px]"
-      style={{ left: a.x, top: a.y, width: img + 16 }}
-    >
-      <Image
-        src={`${IMG}/${a.file}.png`}
-        alt={a.title}
-        width={img}
-        height={img}
-        draggable={false}
-        className="rounded-[8px] object-cover"
-        style={{ width: img, height: a.big ? 191.4 : 175.4 }}
-      />
-      <figcaption className="mt-[10px]">
-        <p className="font-display text-[18px] font-medium leading-[27px] text-ink">{a.title}</p>
-        <p className="text-[12px] font-light leading-[18px] text-ink">{a.sub}</p>
-      </figcaption>
-    </figure>
-  );
-}
 
 // Sticky-note intro (Figma 23:644): note + tape SVG over its shadow, text tilted 2.69° like the note.
 function StickyNote({ x, y, scale = 0.55 }: { x: number; y: number; scale?: number }) {
@@ -101,17 +67,14 @@ export default function PlaygroundPage() {
         <Nav active="Playground" />
       </div>
       <div className="h-full">
-        <PanZoomCanvas world={{ width: 2060, height: 1560 }}>
+        <PanZoomCanvas world={{ width: 2060, height: 1620 }}>
           {/* Figma frame coordinates, lifted slightly so the first row sits just under the floating nav */}
           <div className="absolute left-0 top-[-60px]">
             <Heading x={48} y={210}>Some of my digital artworks</Heading>
-            {digital.map((a) => <ArtCard key={a.file} a={a} />)}
+            <ArtGallery items={digital} />
 
             <Heading x={892} y={210}>Obsessed with</Heading>
             <MusicCorner />
-
-            <Heading x={892} y={595}>Some AI generated arts</Heading>
-            {ai.map((a) => <ArtCard key={a.file} a={a} />)}
 
             <StickyNote x={1638} y={235} scale={0.494} />
 
