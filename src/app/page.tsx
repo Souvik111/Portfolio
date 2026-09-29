@@ -15,18 +15,18 @@ const work = [
     tags: ["Enterprise SaaS", "Data Visualization", "Responsive", "Design Challenge"],
   },
   {
-    href: "/work/deepr",
-    image: `${IMG}/work-deepr.png`,
-    title: "Deepr- Making the invisible visible",
-    desc: "Reimagining how people discover the people behind their favourite music, so I designed a cross-platform music-credit discovery experience",
-    tags: ["ios App", "Multi-Platform", "0-1 Product", "Concept"],
-  },
-  {
     href: "/work/8x",
     image: `${IMG}/work-8x.png`,
     title: "8x — Making outreach worth trusting",
     desc: "Reimagining how brands invite creators to campaigns, so I redesigned the one flow where a click sends a real message to a real person",
     tags: ["Desktop Web", "Redesign", "B2B SaaS", "Prototype"],
+  },
+  {
+    href: "/work/deepr",
+    image: `${IMG}/work-deepr.png`,
+    title: "Deepr- Making the invisible visible",
+    desc: "Reimagining how people discover the people behind their favourite music, so I designed a cross-platform music-credit discovery experience",
+    tags: ["ios App", "Multi-Platform", "0-1 Product", "Concept"],
   },
 ];
 
