@@ -87,7 +87,7 @@ export default function Home() {
                 href={w.href}
                 className="card-hover group block overflow-hidden rounded-[20px]"
                 aria-label={w.title}
-                data-cursor-label={"View Case\\nstudy"}
+                data-cursor-label="View case study"
               >
                 <Image
                   src={w.image}

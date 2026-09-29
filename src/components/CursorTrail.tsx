@@ -1,17 +1,19 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Sketchy orange line that follows the pointer and fades out behind it.
-// Elements with data-cursor-label="…" get a big orange badge that follows
-// the pointer while hovered (e.g. "View Case study" on work cards).
+// Elements with data-cursor-label="…" get the orange star badge from the design,
+// which follows the pointer while hovered (e.g. "View case study" on work cards).
 // Only active for fine pointers (mouse/trackpad), never on touch.
 const TRAIL_MS = 700;
 const ORANGE = "#f0603c";
-const BADGE_R = 75;
+const BADGE = 150; // the star is 243 in the design, shown a little smaller here
 
 export default function CursorTrail() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const badgeRef = useRef<HTMLDivElement>(null);
+  const [label, setLabel] = useState<string | null>(null);
 
   useEffect(() => {
     if (!window.matchMedia("(pointer: fine)").matches) return;
@@ -21,11 +23,7 @@ export default function CursorTrail() {
     const ctx = canvas.getContext("2d")!;
     const points: { x: number; y: number; t: number; c: string }[] = [];
     let cursor = { x: -100, y: -100 };
-    let label: string | null = null;
-    let badge = 0; // 0..1 scale, eased
-    const displayFont =
-      getComputedStyle(document.documentElement).getPropertyValue("--font-syne").trim() ||
-      "sans-serif";
+    let hovered: string | null = null;
     let raf = 0;
     let dpr = 1;
 
@@ -44,11 +42,19 @@ export default function CursorTrail() {
       // white trail over dark/orange surfaces so it stays visible
       const c = el?.closest('[data-trail="light"]') ? "#fff" : ORANGE;
       points.push({ x: e.clientX, y: e.clientY, t: performance.now(), c });
-      label = el?.closest<HTMLElement>("[data-cursor-label]")?.dataset.cursorLabel ?? null;
+
+      const next = el?.closest<HTMLElement>("[data-cursor-label]")?.dataset.cursorLabel ?? null;
+      if (next !== hovered) {
+        hovered = next;
+        setLabel(next);
+      }
+      const b = badgeRef.current;
+      if (b) b.style.transform = `translate(${e.clientX - BADGE / 2}px, ${e.clientY - BADGE / 2}px)`;
     };
     const leave = () => {
       cursor = { x: -100, y: -100 };
-      label = null;
+      hovered = null;
+      setLabel(null);
     };
 
     const draw = () => {
@@ -76,28 +82,6 @@ export default function CursorTrail() {
         ctx.stroke();
       }
 
-      // hover badge: orange circle with the label, eased in/out
-      badge += ((label ? 1 : 0) - badge) * 0.18;
-      if (badge > 0.01) {
-        ctx.globalAlpha = 1;
-        ctx.fillStyle = ORANGE;
-        ctx.beginPath();
-        ctx.arc(cursor.x, cursor.y, BADGE_R * badge, 0, Math.PI * 2);
-        ctx.fill();
-        if (label && badge > 0.6) {
-          ctx.fillStyle = "#fff";
-          ctx.globalAlpha = (badge - 0.6) / 0.4;
-          ctx.font = `500 ${20 * badge}px ${displayFont}`;
-          ctx.textAlign = "center";
-          ctx.textBaseline = "middle";
-          const lines = label.split("\\n");
-          const lh = 25 * badge;
-          lines.forEach((line, i) => {
-            ctx.fillText(line, cursor.x, cursor.y + (i - (lines.length - 1) / 2) * lh);
-          });
-        }
-      }
-
       raf = requestAnimationFrame(draw);
     };
 
@@ -116,10 +100,27 @@ export default function CursorTrail() {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      aria-hidden
-      className="pointer-events-none fixed inset-0 z-[100]"
-    />
+    <>
+      <canvas
+        ref={canvasRef}
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-[100]"
+      />
+      <div
+        ref={badgeRef}
+        aria-hidden
+        className={`cursor-badge pointer-events-none fixed left-0 top-0 z-[101] grid place-items-center ${
+          label ? "cursor-badge-on" : ""
+        }`}
+        style={{ width: BADGE, height: BADGE }}
+      >
+        <span
+          className="absolute inset-0 bg-[url('/home/badge-star.svg')] bg-contain bg-center bg-no-repeat"
+        />
+        <span className="relative max-w-[62%] text-center text-[14px] leading-[18px] text-white">
+          {label}
+        </span>
+      </div>
+    </>
   );
 }
