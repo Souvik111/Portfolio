@@ -776,7 +776,7 @@ export default function DeeprPage() {
           <p className="relative mx-auto max-w-[1030px] font-display text-[24px] font-bold leading-[1.5] text-white md:text-[32px] md:leading-[48px]">
             &quot;Deepr taught me that the hardest design problem isn&apos;t
             making something look good — it&apos;s making something{" "}
-            <span className="text-orange">invisible</span> feel important
+            <span className="text-white">invisible</span> feel important
             enough to explore.&quot;
           </p>
           <div className="relative mt-[30px] flex flex-wrap justify-center gap-[24px]">
