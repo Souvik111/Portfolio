@@ -367,8 +367,8 @@ video::-webkit-media-controls-enclosure {
 .cursor-badge {
   /* translate / scale / rotate are separate properties, so the spin, the pop-in
      and the pointer position never overwrite each other */
-  margin-left: -75px;
-  margin-top: -75px;
+  margin-left: -93px;
+  margin-top: -93px;
   translate: var(--cursor-x, -400px) var(--cursor-y, -400px);
   opacity: 0;
   scale: 0.3;

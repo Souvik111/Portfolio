@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 // Only active for fine pointers (mouse/trackpad), never on touch.
 const TRAIL_MS = 700;
 const ORANGE = "#f0603c";
-const BADGE = 150; // the star is 243 in the design, shown a little smaller here
+const BADGE = 186; // the star is 243 in the design, shown a little smaller here
 
 export default function CursorTrail() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
