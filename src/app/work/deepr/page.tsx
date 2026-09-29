@@ -764,14 +764,14 @@ export default function DeeprPage() {
         </section>
 
         {/* Closing quote */}
-        <section className="relative mx-auto mt-[80px] max-w-[896px] overflow-hidden rounded-[20px] bg-blue px-[24px] pt-[48px] pb-[48px] text-center md:px-[66px] md:pt-[65px] md:pb-[65px]">
+        <section className="relative mt-[80px] overflow-hidden rounded-[20px] bg-blue px-[24px] pt-[48px] pb-[48px] text-center md:px-[85px] md:pt-[65px] md:pb-[65px]">
           <Image
             aria-hidden
             src={`${IMG}/quote-notes.png`}
             alt=""
             fill
             className="pointer-events-none object-cover"
-            sizes="896px"
+            sizes="1200px"
           />
           <p className="relative mx-auto max-w-[764px] font-display text-[24px] font-bold leading-[1.5] text-white md:text-[32px] md:leading-[48px]">
             &quot;Deepr taught me that the hardest design problem isn&apos;t
