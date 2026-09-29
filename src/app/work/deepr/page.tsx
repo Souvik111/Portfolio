@@ -773,7 +773,7 @@ export default function DeeprPage() {
             className="pointer-events-none object-cover"
             sizes="1200px"
           />
-          <p className="relative mx-auto max-w-[764px] font-display text-[24px] font-bold leading-[1.5] text-white md:text-[32px] md:leading-[48px]">
+          <p className="relative mx-auto max-w-[1030px] font-display text-[24px] font-bold leading-[1.5] text-white md:text-[32px] md:leading-[48px]">
             &quot;Deepr taught me that the hardest design problem isn&apos;t
             making something look good — it&apos;s making something{" "}
             <span className="text-orange">invisible</span> feel important
