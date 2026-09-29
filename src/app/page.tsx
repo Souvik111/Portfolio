@@ -8,18 +8,18 @@ const IMG = "/home";
 
 const work = [
   {
-    href: "/work/deepr",
-    image: `${IMG}/work-deepr.png`,
-    title: "Deepr- Making the invisible visible",
-    desc: "Reimagining how people discover the people behind their favourite music, so I designed a cross-platform music-credit discovery experience",
-    tags: ["ios App", "Multi-Platform", "0-1 Product", "Concept"],
-  },
-  {
     href: "/work/piex",
     image: `${IMG}/work-solar.png`,
     title: "Solar Energy SaaS",
     desc: "Designed an operations dashboard and energy forecast model for an industrial solar monitoring platform.",
     tags: ["Enterprise SaaS", "Data Visualization", "Responsive", "Design Challenge"],
+  },
+  {
+    href: "/work/deepr",
+    image: `${IMG}/work-deepr.png`,
+    title: "Deepr- Making the invisible visible",
+    desc: "Reimagining how people discover the people behind their favourite music, so I designed a cross-platform music-credit discovery experience",
+    tags: ["ios App", "Multi-Platform", "0-1 Product", "Concept"],
   },
   {
     href: "/work/8x",

@@ -603,10 +603,10 @@ export default function PiexPage() {
           </p>
           <div className="relative mt-[40px] flex flex-wrap justify-center gap-[24px]">
             <Link
-              href="/work/8x"
+              href="/work/deepr"
               className="btn-pop flex h-[49px] items-center rounded-full bg-white px-[25px] text-[16px] font-semibold text-slate-ink"
             >
-              <span>Next Case Study: 8x</span>
+              <span>Next Case Study: Deepr</span>
             </Link>
             <a
               href="#top"
