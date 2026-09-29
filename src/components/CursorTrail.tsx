@@ -12,7 +12,6 @@ const BADGE = 150; // the star is 243 in the design, shown a little smaller here
 
 export default function CursorTrail() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const badgeRef = useRef<HTMLDivElement>(null);
   const [label, setLabel] = useState<string | null>(null);
 
   useEffect(() => {
@@ -48,8 +47,9 @@ export default function CursorTrail() {
         hovered = next;
         setLabel(next);
       }
-      const b = badgeRef.current;
-      if (b) b.style.transform = `translate(${e.clientX - BADGE / 2}px, ${e.clientY - BADGE / 2}px)`;
+      const root = document.documentElement.style;
+      root.setProperty("--cursor-x", `${e.clientX}px`);
+      root.setProperty("--cursor-y", `${e.clientY}px`);
     };
     const leave = () => {
       cursor = { x: -100, y: -100 };
@@ -107,7 +107,6 @@ export default function CursorTrail() {
         className="pointer-events-none fixed inset-0 z-[100]"
       />
       <div
-        ref={badgeRef}
         aria-hidden
         className={`cursor-badge pointer-events-none fixed left-0 top-0 z-[101] grid place-items-center ${
           label ? "cursor-badge-on" : ""

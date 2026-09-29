@@ -365,10 +365,15 @@ video::-webkit-media-controls-enclosure {
 
 /* ---------- star badge that follows the cursor over work cards ---------- */
 .cursor-badge {
+  /* translate / scale / rotate are separate properties, so the spin, the pop-in
+     and the pointer position never overwrite each other */
+  margin-left: -75px;
+  margin-top: -75px;
+  translate: var(--cursor-x, -400px) var(--cursor-y, -400px);
   opacity: 0;
   scale: 0.3;
   transition: opacity 0.18s ease, scale 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
-  will-change: transform;
+  will-change: translate;
 }
 .cursor-badge-on {
   opacity: 1;
