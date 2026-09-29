@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Souvik Mondal — Portfolio
 
-## Getting Started
+Portfolio site built from the Figma designs: home, three case studies, a pannable
+playground, a web-work carousel and an about page.
 
-First, run the development server:
+**Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4
+
+## Running it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev          # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Other scripts:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build        # production build
+npm run start        # serve the production build
+npm run lint         # eslint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Pages
 
-## Learn More
+| Route          | What it is                                                       |
+| -------------- | ---------------------------------------------------------------- |
+| `/`            | Home — hero, work cards, web section, contact footer              |
+| `/about`       | About — bio, experience, tools                                    |
+| `/playground`  | Infinite canvas: artworks, music player, sketchbook               |
+| `/web`         | Web Design & Development carousel                                 |
+| `/work/deepr`  | Deepr case study                                                  |
+| `/work/piex`   | PIEX Solar SaaS case study                                        |
+| `/work/8x`     | 8x invite-flow case study                                         |
 
-To learn more about Next.js, take a look at the following resources:
+## Layout
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/app/          routes (one folder per page)
+src/components/   shared pieces — Nav, SiteFooter, CursorTrail,
+                  PanZoomCanvas, Sketchbook, MusicCorner, WebCarousel…
+src/app/globals.css   design tokens (colours, fonts) + all animations
+public/           images and video, grouped per page (home, deepr, piex, 8x, web…)
+scripts/          figma-export.mjs — pulls assets straight from Figma
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Things worth knowing
 
-## Deploy on Vercel
+- **Colours and fonts** live as CSS variables at the top of `src/app/globals.css`
+  and are exposed to Tailwind through `@theme inline`, so `bg-orange`,
+  `text-ink`, `font-display` etc. all come from there.
+- **Fonts** are Syne (headings) and DM Sans (body), loaded via `next/font`.
+- **Transparent videos** (the waving cat) ship as both `.webm` (VP9 alpha) and
+  `.mov` (HEVC alpha) — Safari only decodes the second one.
+- **Pixel sprites** (walking cat, dancing cat) are sprite sheets animated with
+  CSS `steps()`, so they stay crisp.
+- **The playground canvas** is `PanZoomCanvas`: children are positioned in Figma
+  coordinates and the whole canvas pans and zooms.
+- **Image quality:** `next.config.ts` allowlists quality `92`, which the web
+  screenshots use — Next 16 ignores any `quality` not listed there.
+- **Pulling new assets from Figma:**
+  ```bash
+  FIGMA_TOKEN=<your token> node scripts/figma-export.mjs <fileKey> <folder> name=1:23 …
+  ```
+  Exports at 2x into `public/<folder>/`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Still to fill in
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `public/cv.pdf` — the "Read CV" button points here
+- The last four slides in `/web` have no live URL yet
