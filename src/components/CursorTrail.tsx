@@ -116,7 +116,7 @@ export default function CursorTrail() {
         <span
           className="absolute inset-0 bg-[url('/home/badge-star.svg')] bg-contain bg-center bg-no-repeat"
         />
-        <span className="relative max-w-[62%] text-center text-[14px] leading-[18px] text-white">
+        <span className="relative max-w-[62%] whitespace-pre-line text-center text-[14px] leading-[18px] text-white">
           {label}
         </span>
       </div>
