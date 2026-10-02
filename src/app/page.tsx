@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Nav from "@/components/Nav";
+import HashRedirect from "@/components/HashRedirect";
 import HoverVideo from "@/components/HoverVideo";
 import CursorTrail from "@/components/CursorTrail";
 
@@ -45,6 +46,7 @@ export default function Home() {
   return (
     <main id="top" className="min-h-screen bg-bg pb-[30px]">
       <CursorTrail />
+      <HashRedirect />
       <Nav active="Home" />
 
       <div className="mx-auto w-full max-w-[1200px] px-6 xl:px-0">
@@ -119,7 +121,7 @@ export default function Home() {
 
         {/* Web work */}
         <section
-          id="playground"
+          id = "web-work"
           className="mt-[70px] rounded-[20px] border-t border-black/20 bg-white px-[20px] pt-[36px] pb-[20px] md:mt-[100px] md:px-[30px] md:pt-[50px] md:pb-[30px]"
         >
           <div className="flex flex-wrap items-start justify-between gap-6">

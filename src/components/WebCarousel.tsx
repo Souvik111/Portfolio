@@ -150,10 +150,8 @@ export default function WebCarousel({ sites }: { sites: Site[] }) {
         ) : null}
       </div>
 
-      <p className="mt-[16px] text-center text-[13px] text-black/40 lg:hidden">
-        <Link href="/#playground" className="underline">
-          Back to home
-        </Link>
+      <p className="mt-[16px] text-center text-[13px] text-black/40 lg:hidden"><Link href="/#web-work" className="underline"> 
+          Back to home</Link>
       </p>
     </>
   );

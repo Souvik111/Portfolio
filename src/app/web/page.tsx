@@ -30,7 +30,7 @@ export default function WebPage() {
     <main id="top" className="min-h-screen bg-bg pb-[40px]">
       <div className="mx-auto w-full max-w-[1200px] px-6 xl:px-0">
         <Link
-          href="/#playground"
+          href="/#web-work"
           className="mt-[60px] inline-flex h-[52px] items-center gap-[12px] rounded-full border border-black/10 bg-surface-nav px-[23px] text-[18px] leading-[27px] text-black transition-transform hover:-translate-x-1"
         >
           <Image src="/web/icon-back.svg" alt="" width={18} height={15} className="h-[15px] w-[18px]" />
